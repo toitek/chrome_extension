@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "AIWriter",
+    "version": "1.0",
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
+    "background": {
+        "scripts": ["scripts/background.js"]
+    },
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": ["scripts/content.js"]
+      }],
+    "browser_action": {
+        "default_popup": "ui/popup.html"
+    }
+    
+}

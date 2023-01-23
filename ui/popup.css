@@ -1,38 +1,42 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  #container {
-    width: 300px;
     padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  textarea {
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+#grammar-form, #tone-form {
+    margin-top: 20px;
+}
+
+textarea {
     width: 100%;
-    height: 100px;
-    box-sizing: border-box;
+    min-height: 200px;
     padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
     font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
-  button {
-    width: 100%;
-    height: 40px;
+    border: 1px solid #ccc;
+}
+
+#correct-grammar-btn, #change-tone-btn {
+    padding: 10px;
     background-color: #4CAF50;
     color: white;
-    font-size: 16px;
     border: none;
     cursor: pointer;
-  }
-  
-  #response {
-    margin-top: 20px;
+    margin-right: 10px;
+}
+
+#correct-grammar-btn:hover, #change-tone-btn:hover {
+    background-color: #3e8e41;
+}
+
+#tone-select {
+    padding: 10px;
     font-size: 16px;
-    color: #555;
-    word-break: break-all;
-  }
-  
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}

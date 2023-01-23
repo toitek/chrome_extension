@@ -1,20 +1,26 @@
 {
-    "manifest_version": 2,
-    "name": "AIWriter",
+    "manifest_version": 3,
+    "name": "AI Writer Extension",
+    "description": "This extension autocompletes text in text areas",
     "version": "1.0",
     "permissions": [
         "activeTab",
-        "storage"
+        "contextMenus"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "scripts/content.js"
+            ]
+        }
     ],
     "background": {
-        "scripts": ["scripts/background.js"]
+        "service_worker": "scripts/eventPage.js"
     },
-    "content_scripts": [{
-        "matches": ["<all_urls>"],
-        "js": ["scripts/content.js"]
-      }],
-    "browser_action": {
+    "action": {
         "default_popup": "ui/popup.html"
     }
-    
 }

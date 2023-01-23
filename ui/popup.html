@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GPT-3 AI Writer</title>
-  <link rel="stylesheet" type="text/css" href="popup.css">
+    <title>AI Writer Extension</title>
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <script src="/scripts/popup.js"></script>
 </head>
 <body>
-  <div id="container">
-    <h1>GPT-3 AI Writer</h1>
-    <textarea id="prompt" placeholder="Enter your prompt here"></textarea>
-    <br>
-    <button id="submit-button">Submit</button>
-    <br><br>
-    <div id="response"></div>
-  </div>
-  <script src="popup.js"></script>
+    <h1>AI Writer</h1>
+    <div id="grammar-form">
+        <h2>Grammar</h2>
+        <textarea id="original-text"></textarea>
+        <button id="correct-grammar-btn">Correct Grammar</button>
+        <textarea id="corrected-text"></textarea>
+    </div>
+    <div id="tone-form">
+        <h2>Tone</h2>
+        <textarea id="original-text"></textarea>
+        <select id="tone-select">
+            <option value="neutral">Neutral</option>
+            <option value="formal">Formal</option>
+            <option value="friendly">Friendly</option>
+            <option value="sarcastic">Sarcastic</option>
+        </select>
+        <button id="change-tone-btn">Change Tone</button>
+        <textarea id="toned-text"></textarea>
+    </div>
 </body>
 </html>

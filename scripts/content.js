@@ -1,5 +1,3 @@
-API_KEY='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'
-
 document.addEventListener("focusin", async (event) => {
   if(event.target.tagName === "TEXTAREA") {
       // Enable the extension when a text area receives focus
@@ -21,7 +19,7 @@ async function enableExtension(textArea) {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': 'Bearer' + API_KEY
+                  'Authorization': 'Bearer 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'
                 },
                 body: JSON.stringify({
                   prompt: lastWord,

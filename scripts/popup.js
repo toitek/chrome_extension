@@ -12,7 +12,7 @@ correctGrammarBtn.addEventListener("click", async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_API_KEY'
+        'Authorization': 'Bearer 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'
       },
       body: JSON.stringify({
         prompt: originalText.value,
@@ -29,7 +29,6 @@ correctGrammarBtn.addEventListener("click", async () => {
       correctedText.value = "Sorry, unable to correct the grammar for the provided text";
     }
 });
-API_KEY='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'
 
 changeToneBtn.addEventListener("click", async () => {
     // Send the original text and the selected tone to the GPT-3 API to get text in that tone
@@ -37,7 +36,7 @@ changeToneBtn.addEventListener("click", async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer${API_KEY}`
+        'Authorization': 'Bearer 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'
       },
       body: JSON.stringify({
         prompt: originalText.value + " tone:" + toneSelect.value,

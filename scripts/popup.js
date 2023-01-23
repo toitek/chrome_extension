@@ -51,7 +51,7 @@ if (data.hasOwnProperty('choices') && data.choices.length > 0) {
     tonedText.value = data.choices[0].text;
 } else {
     // Handle the case where the API returns an empty array of choices
-    tonedText.value = "Sorry, unable to correct the grammar for the provided text";
+    tonedText.value = "Sorry, unable to change the tone for the provided text";
 }
 })
 });

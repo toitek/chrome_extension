@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function(){
 const correctGrammarBtn = document.getElementById("correct-grammar-btn");
 const originalText = document.getElementById("original-text");
 const correctedText = document.getElementById("corrected-text");
@@ -20,8 +21,13 @@ correctGrammarBtn.addEventListener("click", async () => {
       })
     });
     const data = await response.json();
-    // Extract the corrected text from the API response
-    correctedText.value = data.choices[0].text;
+    if (data.hasOwnProperty('choices') && data.choices.length > 0) {
+      // Extract the corrected text from the API response
+      correctedText.value = data.choices[0].text;
+    } else {
+      // Handle the case where the API returns an empty array of choices
+      correctedText.value = "Sorry, unable to correct the grammar for the provided text";
+    }
 });
 API_KEY='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'
 
@@ -40,6 +46,12 @@ changeToneBtn.addEventListener("click", async () => {
       })
     });
     const data = await response.json();
-    // Extract the text with the selected tone from the API response
+if (data.hasOwnProperty('choices') && data.choices.length > 0) {
+    // Extract the corrected text from the API response
     tonedText.value = data.choices[0].text;
+} else {
+    // Handle the case where the API returns an empty array of choices
+    tonedText.value = "Sorry, unable to correct the grammar for the provided text";
+}
+})
 });

@@ -1,3 +1,6 @@
+let autocompletedText = "";
+let autocompletedTextStart = 0;
+let autocompletedTextEnd = 0;
 document.addEventListener("focusin", async (event) => {
   if(event.target.tagName === "TEXTAREA") {
       // Enable the extension when a text area receives focus
@@ -28,16 +31,35 @@ async function enableExtension(textArea) {
                 })
               });
               const data = await response.json();
-              // Extract the autocompleted text from the API response
-              const autocompletedText = data.choices[0].text;
-              // Insert the autocompleted text into the text area
-              textArea.value = text.substring(0, text.lastIndexOf(lastWord)) + autocompletedText + textArea.value.substring(textArea.selectionStart);
-              // Move the cursor to the end of the autocompleted text
-              textArea.selectionStart = textArea.value.length;
-              textArea.selectionEnd = textArea.value.length;
+              if (typeof data !== "undefined" && data !== null && typeof data.choices !== "undefined" && data.choices !== null) {
+                autocompletedText = data.choices[0].text;
+                // Insert the autocompleted text into the text area
+                textArea.value = text + autocompletedText;
+                // highlight the autocompleted text
+                autocompletedTextStart = text.length;
+                autocompletedTextEnd = textArea.value.length;
+                textArea.setSelectionRange(autocompletedTextStart, autocompletedTextEnd);
+document.execCommand("hiliteColor", false, "yellow");
+
+                textArea.classList.add("highlight");
+                // Move the cursor to the end of the autocompleted text
+                textArea.selectionStart = textArea.value.length;
+                textArea.selectionEnd = textArea.value.length;
+            } else {
+                console.log("Data returned from the API is null or undefined")
+            }
           } catch (error) {
               console.error(error);
           }
       }
   });
+  textArea.addEventListener("keydown", (event) => {
+    // Check if the pressed key is the Enter key
+    if (event.code === "Enter") {
+        // include the autocompleted text
+        autocompletedText = "";
+        //remove the highlight
+        textArea.classList.remove("highlight");
+    }
+});
 }

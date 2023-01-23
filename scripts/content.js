@@ -15,7 +15,7 @@ async function enableExtension(textArea) {
           const lastWord = text.split(" ").pop();
           // Autocomplete the word using GPT-3 API
           try {
-              const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+              const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ const tonedText = document.getElementById("toned-text");
 
 correctGrammarBtn.addEventListener("click", async () => {
     // Send the original text to the GPT-3 API to get corrected
-    const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+    const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ correctGrammarBtn.addEventListener("click", async () => {
 
 changeToneBtn.addEventListener("click", async () => {
     // Send the original text and the selected tone to the GPT-3 API to get text in that tone
-    const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+    const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

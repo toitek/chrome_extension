@@ -11,8 +11,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         chrome.windows.create({
             url: "ui/popup.html",
             type: "popup",
-            width: 600,
-            height: 620,
+            "left": 800,
+            "width": 600,
+            "height": 620,
         }, function (window) {
             chrome.runtime.sendMessage({ selectedText: info.selectionText });
         });

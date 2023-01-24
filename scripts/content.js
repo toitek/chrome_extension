@@ -1,3 +1,14 @@
+let textArea = document.querySelector(".Am.Al.editable.LW-avf");
+if (!textArea) {
+    textArea = document.querySelector(".kix-appview-editor.kix-lineview-editor");
+}
+
+if (textArea) {
+  textArea.addEventListener("focus", () => {
+      enableExtension(textArea);
+  });
+}
+
 let autocompletedText = "";
 let autocompletedTextStart = 0;
 let autocompletedTextEnd = 0;

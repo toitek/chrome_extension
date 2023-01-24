@@ -7,6 +7,12 @@
         "activeTab",
         "contextMenus"
     ],
+    "host_permissions": [
+        "<all_urls>",
+        "https://mail.google.com/*",
+        "https://docs.google.com/*",
+        "https://drive.google.com/*"
+    ],
     "icons": {
         "16": "icons/icon16.png",
         "48": "icons/icon48.png",
@@ -15,7 +21,10 @@
     "content_scripts": [
         {
             "matches": [
-                "<all_urls>"
+                "<all_urls>",
+                "https://mail.google.com/*",
+                "https://docs.google.com/*",
+                "https://drive.google.com/*"
             ],
             "js": [
                 "scripts/content.js"

@@ -1,42 +1,95 @@
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-}
-
-h1, h2 {
-    text-align: center;
-}
-
-#grammar-form, #tone-form {
-    margin-top: 20px;
-}
-
-textarea {
-    width: 100%;
-    min-height: 200px;
-    padding: 10px;
-    margin-bottom: 10px;
+/* General styles */
+* {
+    width: 600px;
+    padding: 5;
+    margin: 0;
+    font-family: 'Righteous', cursive;
     box-sizing: border-box;
-    font-size: 16px;
-    border: 1px solid #ccc;
 }
 
-#correct-grammar-btn, #change-tone-btn {
+.write {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background-color:rgb(134, 199, 241);
+    background-size: cover;
+    background-position: center;
+}
+
+/* Input textarea styles */
+#original-text {
+    width: 80%;
+    height: 150px;
     padding: 10px;
-    background-color: #4CAF50;
+    font-size: 1.5em;
+    margin-bottom: 13px;
+    border: 1px solid lightgray;
+    background-color: #f2f2f2;
+}
+
+/* Correct grammar styles */
+#correct-grammar-btn {
+    width: 25%;
+    height: 45px;
+    background-color: #48cf4c;
     color: white;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    border: transparent;
+    border-radius: 15px;
+    
 }
-
-#correct-grammar-btn:hover, #change-tone-btn:hover {
-    background-color: #3e8e41;
+#correct-grammar-btn:hover {
+    background-color: #248328;
+    transition: .4s;
 }
-
-#tone-select {
+#corrected-text {
+    width: 80%;
+    height: 150px;
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    margin-right: 10px;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    border: 1px solid lightgray;
+    background-color: #f2f2f2;
+    text-align: left;
+    overflow-y: scroll;
+    resize: none;
+    pointer-events: none;
+    
+}
+
+/* Tone change styles */
+#tone-select {
+    width: 50%;
+    height: 35px;
+    padding: 5px;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    border-radius: 15px;
+}
+#change-tone-btn {
+    width: 23%;
+    height: 45px;
+    background-color: #48cf4c;
+    color: white;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    border: transparent;
+    border-radius: 15px;
+}
+#change-tone-btn:hover {
+    background-color: #248328;
+    transition: .4s;
+}
+#toned-text {
+    width: 80%;
+    height: 150px;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 1px solid lightgray;
+    background-color: #f2f2f2;
+    text-align: left;
+    overflow-y: scroll;
+    resize: none;
+    pointer-events: none;
 }

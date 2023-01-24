@@ -16,7 +16,7 @@ correctGrammarBtn.addEventListener("click", async () => {
       },
       body: JSON.stringify({
         input: originalText.value,
-        instruction: "Fix the spelling mistakes",
+        instruction: "Fix the grammar mistakes",
         temperature: 0.7
       })
     });
@@ -40,7 +40,7 @@ changeToneBtn.addEventListener("click", async () => {
       },
       body: JSON.stringify({
         input: originalText.value,
-        instruction: "Rewrite in a" + toneSelect.value + "tone",
+        instruction: "Rewrite, with the correct grammar and in a" + toneSelect.value + "tone",
         temperature: 0.5
       })
     });

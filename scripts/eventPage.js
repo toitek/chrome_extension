@@ -12,7 +12,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             url: "ui/popup.html",
             type: "popup",
             width: 600,
-            height: 400
+            height: 620,
         }, function (window) {
             chrome.runtime.sendMessage({ selectedText: info.selectionText });
         });

@@ -24,16 +24,15 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         })
             .then(response => response.json())
             .then(data => {
-                chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-                    chrome.tabs.sendMessage(tabs[0].id, { text: data.choices[0].text }, function (response) {
-                        console.log(response.farewell);
+                chrome.tabs.create({
+                    "url": chrome.extension.getURL("ui/popup.html"),
+                    "active": true
+                }, function (tab) {
+                    chrome.tabs.executeScript(tab.id, {
+                        code: document.getElementById("input-field").value = "${data.choices[0].text}"
                     });
                 });
             })
             .catch(error => console.error(error));
     }
-});
-
-chrome.browserAction.onClicked.addListener(() => {
-    chrome.browserAction.setPopup({ popup: 'popup.html' });
 });

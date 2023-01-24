@@ -37,7 +37,7 @@ async function enableExtension(textArea) {
                 },
                 body: JSON.stringify({
                   prompt: lastWord,
-                  max_tokens: 50,
+                  max_tokens: 7,
                   temperature: 0.7
                 })
               });

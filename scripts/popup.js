@@ -8,15 +8,15 @@ const tonedText = document.getElementById("toned-text");
 
 correctGrammarBtn.addEventListener("click", async () => {
     // Send the original text to the GPT-3 API to get corrected
-    const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
+    const response = await fetch('https://api.openai.com/v1/engines/text-davinci-edit-001/edits', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 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'
       },
       body: JSON.stringify({
-        prompt: originalText.value,
-        max_tokens: 50,
+        input: originalText.value,
+        instruction: "Fix the spelling mistakes",
         temperature: 0.7
       })
     });
@@ -32,16 +32,16 @@ correctGrammarBtn.addEventListener("click", async () => {
 
 changeToneBtn.addEventListener("click", async () => {
     // Send the original text and the selected tone to the GPT-3 API to get text in that tone
-    const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
+    const response = await fetch('https://api.openai.com/v1/engines/text-davinci-edit-001/edits', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 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'
       },
       body: JSON.stringify({
-        prompt: originalText.value + " tone:" + toneSelect.value,
-        max_tokens: 50,
-        temperature: 0.7
+        input: originalText.value,
+        instruction: "Rewrite in a" + toneSelect.value + "tone",
+        temperature: 0.5
       })
     });
     const data = await response.json();

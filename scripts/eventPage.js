@@ -4,6 +4,7 @@ var menuItem = {
     "contexts": ["selection"]
 };
 
+// creation of a popup
 chrome.contextMenus.create(menuItem);
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {

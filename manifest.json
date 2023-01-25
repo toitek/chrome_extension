@@ -5,7 +5,8 @@
     "version": "1.0",
     "permissions": [
         "activeTab",
-        "contextMenus"
+        "contextMenus",
+        "browserAction"
     ],
     "host_permissions": [
         "<all_urls>",
@@ -27,8 +28,10 @@
                 "https://drive.google.com/*"
             ],
             "js": [
-                "scripts/content.js"
-            ]
+                "scripts/content.js",
+                "scripts/floating-button.js"
+            ],
+            "css": ["ui/floating-button.css"]
         }
     ],
     "background": {

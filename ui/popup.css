@@ -54,7 +54,7 @@
     text-align: left;
     overflow-y: scroll;
     resize: none;
-    pointer-events: none;
+    /* pointer-events: none; */
     
 }
 
@@ -91,5 +91,5 @@
     text-align: left;
     overflow-y: scroll;
     resize: none;
-    pointer-events: none;
+    /* pointer-events: none; */
 }

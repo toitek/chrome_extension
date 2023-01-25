@@ -1,5 +1,5 @@
 const button = document.createElement("button");
-button.innerHTML = "AI Writer";
+button.innerHTML = "AI w";
 button.classList.add("floating-button");
 document.body.appendChild(button);
 

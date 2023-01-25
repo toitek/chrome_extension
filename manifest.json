@@ -5,8 +5,7 @@
     "version": "1.0",
     "permissions": [
         "activeTab",
-        "contextMenus",
-        "browserAction"
+        "contextMenus"
     ],
     "host_permissions": [
         "<all_urls>",

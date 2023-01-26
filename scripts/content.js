@@ -1,13 +1,12 @@
-
+// make sure that your extension runs only after the page is fully loaded
+window.addEventListener("load", () => {
 let textArea = document.querySelector(".Am.Al.editable.LW-avf");
-if (!textArea) {
-    textArea = document.querySelector(".kix-appview-editor.kix-lineview-editor");
-}
-
-if (textArea) {
-  textArea.addEventListener("focus", () => {
-      enableExtension(textArea);
-  });
+const iframe = document.querySelector('.docs-texteventtarget-iframe');
+if(iframe){
+    const textArea = iframe.contentDocument.querySelector('body');
+    textArea.addEventListener("focus", () => {
+        enableExtension(textArea);
+    });
 }
 
 let autocompletedText = "";
@@ -79,3 +78,4 @@ async function enableExtension(textArea) {
   suggestionAccepted = false;
 });
 }
+});

@@ -1,3 +1,14 @@
+// for receiving event page message
+document.addEventListener('DOMContentLoaded', function() {
+  chrome.runtime.onMessage.addListener(
+      function (request, sender, sendResponse) {
+          if (request.message === "update_selected_text") {
+              var selectedText = request.selectedText;
+              document.getElementById("original-text").value = selectedText;
+          }
+      });
+}, false);
+
 document.addEventListener('DOMContentLoaded', function(){
 const correctGrammarBtn = document.getElementById("correct-grammar-btn");
 const originalText = document.getElementById("original-text");

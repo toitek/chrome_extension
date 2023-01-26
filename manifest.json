@@ -6,7 +6,8 @@
     "permissions": [
         "activeTab",
         "contextMenus",
-        "tabs"
+        "tabs",
+        "windows"
     ],
     "host_permissions": [
         "<all_urls>",
@@ -29,7 +30,9 @@
             ],
             "js": [
                 "scripts/content.js",
-                "scripts/floating-button.js"
+                "scripts/floating-button.js",
+                "scripts/popup.js",
+                "scripts/eventPage.js"
             ],
             "css": ["ui/floating-button.css"]
         }

@@ -80,7 +80,7 @@ function checkForFocus() {
 setInterval(checkForFocus, 100);
 document.body.appendChild(button);
 
-// Add click event listener to options
+// Add click event listener to options when clicked: INCOMPLETE
 options.addEventListener("click", (event) => {
     if (event.target.classList.contains("option")) {
         // Do something when the option is clicked

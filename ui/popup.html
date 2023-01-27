@@ -4,11 +4,15 @@
     <title>AI Writer Extension</title>
     <link rel="stylesheet" type="text/css" href="popup.css">
     <script src="/scripts/popup.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script type="text/javascript" src="/scripts/oauth.js"></script>
 </head>
 <body>
     <div class="write">
         <h1>AI Writer</h1>
-       
+        
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
         <textarea id="original-text"></textarea>
         <button id="correct-grammar-btn">Correct Grammar</button>
         <textarea id="corrected-text"></textarea>

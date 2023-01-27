@@ -1,9 +1,12 @@
 // Initialize the extension
+chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
-    "id": "AIwriter",
-    "title": "AI Writer",
-    "contexts": ["selection"]
- });
+      "id": "AIwriter",
+      "title": "AI Writer",
+      "contexts": ["selection"]
+    });
+  });
+  
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
     if (info.menuItemId === "AIwriter") {    

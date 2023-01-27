@@ -3,11 +3,16 @@
     "name": "AI Writer Extension",
     "description": "This extension autocompletes text in text areas, corrects grammar and changes text tone",
     "version": "1.0",
+    "oauth2": {
+        "client_id": "1081264112106-4ai54747vnp6klfocgj85f63tpvmcgev.apps.googleusercontent.com",
+        "scopes":["ui/popup.html"]
+      },
     "permissions": [
         "activeTab",
         "contextMenus",
         "tabs",
-        "windows"
+        "windows",
+        "identity"
     ],
     "host_permissions": [
         "<all_urls>",

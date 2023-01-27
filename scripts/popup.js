@@ -65,3 +65,11 @@ if (data.hasOwnProperty('choices') && data.choices.length > 0) {
 }
 })
 });
+// selected text to appear in text arear of popup
+chrome.runtime.onMessage.addListener(
+  function (request, sender, sendResponse) {
+    if (request.message === "update_selected_text") {
+      // Update the text area with the selected text
+      document.getElementById("inputText").value = request.selectedText;
+    }
+  });

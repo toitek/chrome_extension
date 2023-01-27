@@ -44,6 +44,7 @@ tooltip.addEventListener("mouseout", (event) => {
         isTooltipVisible = false;
     }
 });
+
 // Hide the tooltip when button is clicked twice
 button.addEventListener("click", () => {
     if (isTooltipVisible) {
@@ -82,12 +83,14 @@ document.body.appendChild(button);
 
 // Add click event listener to options when clicked: INCOMPLETE
 options.addEventListener("click", (event) => {
-    if (event.target.classList.contains("option")) {
-        // Do something when the option is clicked
-        if (event.target.innerHTML === "Enable") {
-            console.log("Enable clicked");
-        } else if (event.target.innerHTML === "Disable") {
-            console.log("Disable clicked");
+        if (event.target.classList.contains("option")) {
+            // Do something when the option is clicked
+            if (event.target.innerHTML === "Enable") {
+                console.log("Enable clicked");
+                button.style.backgroundColor = ""; // remove the gray background color
+            } else if (event.target.innerHTML === "Disable") {
+                console.log("Disable clicked");
+                button.style.backgroundColor = "gray";
+            }
         }
-    }
-});
+    });

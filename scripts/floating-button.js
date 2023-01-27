@@ -2,37 +2,48 @@ const button = document.createElement("button");
 button.innerHTML = "AI w";
 button.classList.add("floating-button");
 
+// Create tooltip container
+const tooltip = document.createElement("div");
+tooltip.classList.add("options");
+tooltip.style.display = "none";
+
 // Create options container
 const options = document.createElement("div");
 options.classList.add("options-container");
-options.style.display = "none";
 
 // Create options
 const option1 = document.createElement("div");
 option1.innerHTML = "Enable";
+option1.classList.add("option");
 options.appendChild(option1);
 
 const option2 = document.createElement("div");
 option2.innerHTML = "Disable";
+option2.classList.add("option");
 options.appendChild(option2);
 
+// Append options to tooltip
+tooltip.appendChild(options);
 
-// Append options to button
-button.appendChild(options);
+// Append tooltip to button
+button.appendChild(tooltip);
 
-// Show options when button is hovered
+// Show tooltip when button is hovered
 button.addEventListener("mouseover", () => {
-    options.style.display = "flex";
-    options.style.color = "#4CAF50";
-    options.style.transition = "all 0.5s ease-in-out";
-    options.style.left = "-200px";
+    tooltip.style.display = "block";
+    tooltip.style.position = "absolute";
 });
 
-// Hide options when button is not hovered
+// Hide tooltip when button is not hovered
 button.addEventListener("mouseout", () => {
-    options.style.transition = "all 0.5s ease-in-out";
-    options.style.left = "-150px";
-    options.style.display = "none";
+    tooltip.style.display = "none";
+});
+
+button.addEventListener("mouseout", (event) => {
+    if (event.relatedTarget !== button && event.relatedTarget !== tooltip) {
+        tooltip.style.display = "none";
+        tooltipVisible = false;
+    }
 });
 
 // make the pop appear when the floating button is clicked
@@ -42,9 +53,6 @@ button.addEventListener("click", () => {
         active: true
     });
 });
-
-// make the button draggable
-
 
 // check for text areas to appear
 function checkForFocus() {
@@ -60,3 +68,23 @@ function checkForFocus() {
 }
 setInterval(checkForFocus, 100);
 document.body.appendChild(button);
+
+// Add click event listener to options
+options.addEventListener("click", (event) => {
+    if (event.target.classList.contains("option")) {
+        // Do something when the option is clicked
+        if (event.target.innerHTML === "Enable") {
+            console.log("Enable clicked");
+        } else if (event.target.innerHTML === "Disable") {
+            console.log("Disable clicked");
+        }
+    }
+});
+
+
+// Add event listener to document body to hide tooltip when not hovered
+document.body.addEventListener("mouseover", (event) => {
+    if (!event.target.classList.contains("floating-button")) {
+        tooltip.style.display = "none";
+    }
+});

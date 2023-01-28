@@ -6,23 +6,27 @@ window.onload = function() {
     });
   };
 
-gapi.load('auth2', function() {
-  gapi.auth2.init({
-      client_id: '1081264112106-4ai54747vnp6klfocgj85f63tpvmcgev.apps.googleusercontent.com'
-    });
-});
+// gapi.load('auth2', function() {
+//   gapi.auth2.init({
+//       client_id: '1081264112106-4ai54747vnp6klfocgj85f63tpvmcgev'
+//     });
+// });
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
-  var email = profile.getEmail();
-  // Use the email to verify the user's identity
+  $("#name").text(profile.getName());
+  $(".write").css("display", "block");
+  $(".g-signin2").css("display", "none");
 }
 
 
 
 var auth2 = gapi.auth2.getAuthInstance();
 auth2.signOut().then(function () {
-  console.log('User signed out.');
   auth2.disconnect();
+  alert('Successfully signed out.');
+  $(".write").css("display", "none");
+  $(".g-signin2").css("display", "block");
+  
 });
 

@@ -2,9 +2,9 @@
     "manifest_version": 3,
     "name": "AI Writer Extension",
     "description": "This extension autocompletes text in text areas, corrects grammar and changes text tone",
-    "version": "1.0",
+    "version": "1.1.0",
     "oauth2": {
-        "client_id": "1081264112106-4ai54747vnp6klfocgj85f63tpvmcgev.apps.googleusercontent.com",
+        "client_id": "1081264112106-4ai54747vnp6klfocgj85f63tpvmcgev",
         "scopes":["ui/popup.html"]
       },
     "permissions": [
@@ -36,8 +36,7 @@
             "js": [
                 "scripts/content.js",
                 "scripts/floating-button.js",
-                "scripts/popup.js",
-                "scripts/eventPage.js"
+                "scripts/popup.js"
             ],
             "css": ["ui/floating-button.css"]
         }

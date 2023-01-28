@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>AI Writer Extension</title>
     <link rel="stylesheet" type="text/css" href="popup.css">
-    <script src="/scripts/popup.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script type="text/javascript" src="/scripts/oauth.js"></script>
 </head>
+
 <body>
+    <h2>Sign-in to use AI Writer</h2>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
     <div class="write">
         <h1>AI Writer</h1>
-        
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
+        <p id="name">User: </p>
         <textarea id="original-text"></textarea>
         <button id="correct-grammar-btn">Correct Grammar</button>
         <textarea id="corrected-text"></textarea>
-        
+
         <select id="tone-select">
             <option value="neutral">Neutral</option>
             <option value="formal">Formal</option>
@@ -25,6 +25,13 @@
         </select>
         <button id="change-tone-btn">Change Tone</button>
         <textarea id="toned-text"></textarea>
+        
+        <button type="button" class="btn btn-danger" onclick="signOut();">Sign out</button>
     </div>
+    <script src="/scripts/popup.js"></script>
+    <script src="/scripts/content.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/scripts/oauth.js"></script>
 </body>
+
 </html>

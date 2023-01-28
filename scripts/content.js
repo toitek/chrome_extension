@@ -1,3 +1,4 @@
+
 // make sure that your extension runs only after the page is fully loaded
 window.addEventListener("load", () => {
 let textArea = document.querySelector(".Am.Al.editable.LW-avf");

@@ -1,13 +1,26 @@
 // for receiving event page message
-document.addEventListener('DOMContentLoaded', function() {
-  chrome.runtime.onMessage.addListener(
-      function (request, sender, sendResponse) {
-          if (request.message === "update_selected_text") {
-              var selectedText = request.selectedText;
-              document.getElementById("original-text").value = selectedText;
-          }
-      });
-}, false);
+// document.addEventListener('DOMContentLoaded', function() {
+//   chrome.runtime.onMessage.addListener(
+//       function (request, sender, sendResponse) {
+//         console.log( sender.tab ?
+//           "from event page:" + sender.tab.url: 
+//           "from the extension");
+//           if (request.message === "update_selected_text") {
+//               sendResponse({ack:"message received"})
+//               var selectedText = request.selectedText;
+//               document.getElementById("original-text").value = selectedText;
+//           }
+//       });
+// });
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.message === "update_selected_text") {
+    sendResponse({ack:"message received"})
+      var selectedText = request.selectedText;
+      console.log(selectedText);
+      document.getElementById("original-text").value = selectedText;
+  }
+});
+
 
 document.addEventListener('DOMContentLoaded', function(){
 const correctGrammarBtn = document.getElementById("correct-grammar-btn");

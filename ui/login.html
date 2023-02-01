@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="follow,index" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <meta name="keywords" content="login page" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://mazipan.github.io/login-page-css/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://mazipan.github.io/login-page-css/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://mazipan.github.io/login-page-css/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta name="msapplication-TileColor" content="#c30f42" />
+    <meta name="theme-color" content="#c30f42" />
+    <link rel="manifest" href="https://mazipan.github.io/login-page-css/manifest.json" />
+
+    <link rel="stylesheet" href="/ui/styles/login.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"/>
+    
+      <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+
+  <body>
+    <div class="logo-wrapper">
+      <img class="logo" alt="Logo" src="/icons/icon128.png" />
+    </div>
+
+    <div class="content-body">
+      <div class="form-wrapper">
+        <h1 class="text-title">Log into AI Writer</h1>
+        <div class="text-register">Dont have an account yet?<a href="#">Register here</a></div>
+
+        <div class="field-group">
+          <input
+            class="input"
+            type="text"
+            id="txt-email"
+            name="email"
+            placeholder="E-mail / Username"
+          />
+          <input class="input" type="password" id="txt-password" name="password" placeholder="Password" />
+        </div>
+
+        <div class="field-group-inline">
+          <label for="chk-rememberme">
+            <input class="checkbox" type="checkbox" id="chk-rememberme" name="rememberme" />
+            Remember Me
+          </label>
+          <a href="#forget-password"> Forgot Password? </a>
+        </div>
+
+        <div class="field-group">
+          <input class="btn-submit" type="submit" value="Login" />
+        </div>
+
+        <div class="separator-wrapper">
+          <div class="separator">
+            <span>Login</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+            <!-- <a href="#login-facebook" class="link-social-login">
+                <img src="./fb-logo.png" />
+                Login dengan Facebook
+            </a> -->
+            <div id="g_id_onload"
+                data-client_id="1081264112106-4ai54747vnp6klfocgj85f63tpvmcgev.apps.googleusercontent.com"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-callback="handleCredentialResponse"
+                data-auto_prompt="false">
+            </div>
+        
+            <div class="g_id_signin"
+                data-type="standard"
+                data-shape="pill"
+                data-theme="filled_blue"
+                data-text="signin_with"
+                data-size="medium"
+                data-logo_alignment="left">
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADDITIONAL CODE -- start YOU MIGHT NOT NEEDED -->
+    <footer>
+      <!-- <a href="/login-page-css/"> Back to Home </a>
+      <span class="author"> -->
+        © 2020
+      </span>
+      <!-- <a href="https://github.com/mazipan/login-page-css" rel="noopener noreferrer" target="_blank"> Github Repo </a> -->
+    </footer>
+    <!-- ADDITIONAL CODE -- end YOU MIGHT NOT NEEDED -->
+    <script src="../scripts/login.js"></script>
+  </body>
+</html>

@@ -38,7 +38,7 @@
                 "scripts/floating-button.js",
                 "scripts/popup.js"
             ],
-            "css": ["ui/floating-button.css"]
+            "css": ["ui/styles/floating-button.css"]
         }
     ],
     "background": {

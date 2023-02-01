@@ -26,6 +26,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         // Send the selected text to the popup script
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           var activeTab = tabs[0];
+          
           chrome.tabs.sendMessage(activeTab.id, {message: "update_selected_text", selectedText: selectedText}, function(response) {
               console.log(response.ack);
           });

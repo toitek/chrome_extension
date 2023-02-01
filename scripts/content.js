@@ -65,6 +65,7 @@ async function enableExtension(textArea) {
     }
   });
   textArea.addEventListener("keyup", (event) => {
+    console.log("content ok")
     if (suggestionAccepted) {
       // Change the color of the autocompleted text to default
       textArea.setSelectionRange(autocompletedTextStart, autocompletedTextEnd);

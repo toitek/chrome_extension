@@ -83,14 +83,16 @@ document.body.appendChild(button);
 
 // Add click event listener to options when clicked: INCOMPLETE
 options.addEventListener("click", (event) => {
-        if (event.target.classList.contains("option")) {
-            // Do something when the option is clicked
-            if (event.target.innerHTML === "Enable") {
-                console.log("Enable clicked");
-                button.style.backgroundColor = ""; // remove the gray background color
-            } else if (event.target.innerHTML === "Disable") {
-                console.log("Disable clicked");
-                button.style.backgroundColor = "gray";
-            }
+    if (event.target.classList.contains("option")) {
+        // Do something when the option is clicked
+        if (event.target.innerHTML === "Enable") {
+            console.log("Enable clicked");
+            button.style.backgroundColor = ""; // remove the gray background color
+            button.style.display = "block"; // make the button visible
+        } else if (event.target.innerHTML === "Disable") {
+            console.log("Disable clicked");
+            button.style.backgroundColor = "gray";
+            // button.style.display = "none"; // make the button disappear
         }
-    });
+    }
+});

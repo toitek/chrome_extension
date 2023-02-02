@@ -35,22 +35,28 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
       rel="stylesheet"/>
     
-      <script src="https://accounts.google.com/gsi/client" async defer></script>
+      <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-${nonce}'"> -->
+
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; script-src 'self' https://accounts.google.com/gsi/client 'unsafe-inline' 'unsafe-eval';  media-src *"> -->
+    
+    <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
+    
   </head>
 
   <body>
     <header class="header">
-        <h1 class="text-title"> AI Writer</h1>
+      <div class="logo-wrapper">
+        <img class="logo" alt="Logo" src="/icons/icon128.png" />
+      </div>
+        <!-- <h1 class="text-title"> AI Writer</h1> -->
     </header>
     
 
     <div class="content-body">
        
       <div class="form-wrapper">
-        <div class="logo-wrapper">
-            <img class="logo" alt="Logo" src="/icons/icon128.png" />
-          </div>
-        <h1 class="text-title">Log In</h1>
+      
+        <h2 class="text-title">Sign in to continue to AI Writer</h2>
         <div class="field-group">
             <!-- <a href="#login-facebook" class="link-social-login">
                 <img src="./fb-logo.png" />
@@ -85,6 +91,7 @@
       <!-- <a href="https://github.com/mazipan/login-page-css" rel="noopener noreferrer" target="_blank"> Github Repo </a> -->
     </footer>
     <!-- ADDITIONAL CODE -- end YOU MIGHT NOT NEEDED -->
+    <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
     <script src="../scripts/login.js"></script>
   </body>
 </html>

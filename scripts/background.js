@@ -2,6 +2,13 @@
 //     chrome.tabs.create({url: 'index.html'});
 //   });
 
+chrome.storage.local.get('signed_in', (data) => {
+  if (data.signed_in) {
+    chrome.action.setPopup({popup: 'popup.html'});
+  } else {
+    chrome.action.setPopup({popup: 'popup_login.html'});
+  }
+});
 
 // Initialize the extension
 chrome.runtime.onInstalled.addListener(function() {

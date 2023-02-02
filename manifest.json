@@ -7,7 +7,7 @@
         "client_id": "1081264112106-r3t5evcv8ov3s8d63a85itg84osfckme.apps.googleusercontent.com",
         "scopes": [
             "profile email",
-            "ui/popup.html"
+            "ui/login.html"
         ]
     },
     "permissions": [
@@ -40,7 +40,8 @@
             "js": [
                 "scripts/content.js",
                 "scripts/floating-button.js",
-                "scripts/popup.js"
+                "scripts/popup.js",
+                "scripts/login.js"
             ],
             "css": [
                 "ui/styles/floating-button.css"
@@ -51,6 +52,6 @@
         "service_worker": "scripts/eventPage.js"
     },
     "action": {
-        "default_popup": "ui/popup.html"
+        "default_popup": "ui/login.html"
     }
 }

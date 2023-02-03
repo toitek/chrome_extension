@@ -1,21 +1,3 @@
-// const nonce = btoa(String(Math.random())).substr(0, 16);
-
-// document.head.innerHTML = `
-//   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-${nonce}'">
-// `;
-
-
-fetch('https://accounts.google.com/gsi/client')
-  .then(response => response.text())
-  .then(scriptText => {
-	
-    const script = document.createElement('script');
-    script.innerHTML = scriptText;
-	// script.nonce = nonce;
-    document.head.appendChild(script);
-  });
-
-
 function handleCredentialResponse(response) {
 	// decodeJwtResponse() is a custom function
 	// to decode the credential response.

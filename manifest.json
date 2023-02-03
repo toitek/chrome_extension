@@ -7,7 +7,7 @@
         "client_id": "1081264112106-r3t5evcv8ov3s8d63a85itg84osfckme.apps.googleusercontent.com",
         "scopes": [
             "profile email",
-            "ui/login.html"
+            "https://accounts.google.com/gsi/client"
         ]
     },
     "permissions": [
@@ -18,8 +18,8 @@
         "identity"
     ],
     "host_permissions": [
-        "<all_urls>",
-        "https://accounts.google.com/gsi/",
+        "https://www.google.com/",
+        "https://accounts.google.com/gsi/client",
         "https://mail.google.com/*",
         "https://docs.google.com/*",
         "https://drive.google.com/*"
@@ -41,7 +41,7 @@
                 "scripts/content.js",
                 "scripts/floating-button.js",
                 "scripts/popup.js",
-                "scripts/login.js"
+                "scripts/prompt.js"
             ],
             "css": [
                 "ui/styles/floating-button.css"
@@ -49,9 +49,9 @@
         }
     ],
     "background": {
-        "service_worker": "scripts/eventPage.js"
+        "service_worker": "scripts/background.js"
     },
     "action": {
-        "default_popup": "ui/login.html"
+        "default_popup": "ui/prompt.html"
     }
 }

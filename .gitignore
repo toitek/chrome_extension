@@ -1,0 +1,5 @@
+"content_security_policy": {
+        "extension_pages": "chrome-extension://iknjnipdmpepijgnkgabgbedbimahgni/login.html",
+        "script-src": "self"
+    },
+font-src 'https://fonts.gstatic.com/s/opensans/v34/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu1aB.woff2'; style-src-elem 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap';

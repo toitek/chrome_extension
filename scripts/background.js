@@ -1,14 +1,31 @@
-// chrome.action.onClicked.addListener(function() {
-//     chrome.tabs.create({url: 'index.html'});
-//   });
+chrome.action.onClicked.addListener(function() {
+    chrome.tabs.create({url: 'ui/login.html'});
+  });
 
-chrome.storage.local.get('signed_in', (data) => {
-  if (data.signed_in) {
-    chrome.action.setPopup({popup: 'popup.html'});
-  } else {
-    chrome.action.setPopup({popup: 'popup_login.html'});
-  }
-});
+  
+//   document.head.innerHTML = `
+//      <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+//    `;
+
+// fetch('https://accounts.google.com/gsi/client')
+//   .then(response => response.text())
+//   .then(scriptText => {
+	
+//     const script = document.createElement('script');
+//     script.innerHTML = scriptText;
+// 	// script.nonce = nonce;
+//     document.head.appendChild(script);
+//   });
+  
+  
+  
+// chrome.storage.local.get('signed_in', (data) => {
+//   if (data.signed_in) {
+//     chrome.action.setPopup({popup: 'popup.html'});
+//   } else {
+//     chrome.action.setPopup({popup: 'popup_login.html'});
+//   }
+// });
 
 // Initialize the extension
 chrome.runtime.onInstalled.addListener(function() {

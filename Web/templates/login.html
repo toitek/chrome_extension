@@ -7,7 +7,7 @@
     <title>Login Page</title>
 
     <link rel="manifest" href="https://mazipan.github.io/login-page-css/manifest.json" />
-    <link rel="stylesheet" href="login_style.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="../static/css/login_style.css") }}">
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
       rel="stylesheet"
@@ -17,7 +17,7 @@
 
   <body>
     <div class="logo-wrapper">
-      <img class="logo" alt="Logo" src="/Web/icon128.png" />
+      <img class="logo" alt="Logo" src="../static/img/icon128.png" />
     </div>
 
     <div class="content-body">
@@ -96,9 +96,9 @@
     <footer>
       <a href="#"> Back to Home </a>
       <span class="author">
-        © 2020
+        © 2023
       </span>
     </footer>
-    <script src="/Web/login.js"></script>
+    <script src="{{ url_for('static', filename='../static/js/login.js') }}"></script>
   </body>
 </html>

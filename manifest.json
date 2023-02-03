@@ -52,6 +52,6 @@
         "service_worker": "scripts/background.js"
     },
     "action": {
-        "default_popup": "ui/prompt.html"
+        "default_popup": "ui/login.html"
     }
 }

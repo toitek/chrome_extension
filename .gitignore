@@ -8,3 +8,57 @@ pip3 install virtualenv
 virtualenv <your-env>
 source <your-env>/bin/activate
 <your-env>/bin/pip install google-api-python-client
+
+
+
+# @app.route("/login")
+# def login():
+#   # Redirect the user to Google Sign-In page
+#   return redirect("https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=http://localhost:5000/callback&scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline")
+
+# @app.route("/callback")
+# def callback():
+#   # Get the authorization code from the query parameters
+#   code = request.args.get("code")
+
+#   # Use the authorization code to get an access token
+#   credentials = Credentials.from_authorized_user_code(
+#       code,
+#       ["https://www.googleapis.com/auth/userinfo.email"],
+#       client_id="1081264112106-06vrkigqa5a8eh2n3u5p1ibq1fppcc5d.apps.googleusercontent.com",
+#       client_secret="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",
+#       redirect_uri="http://localhost:5000/callback"
+#   )
+
+#   # Store the access token, user information, given name, and family name in your database
+#   user_info = credentials.id_token
+#   given_name = user_info.get("given_name", "")
+#   family_name = user_info.get("family_name", "")
+#   user = User(email=user_info["email"], access_token=credentials.to_json(), given_name=given_name, family_name=family_name)
+#   db.session.add(user)
+#   db.session.commit()
+
+#   # Redirect the user to the extension
+#   return redirect("chrome-extension://iknjnipdmpepijgnkgabgbedbimahgni/options")
+
+# create the database
+# db.create_all()
+
+# function handleCredentialResponse(response) {
+# 	const responsePayload = decodeJwtResponse(response.credential);
+
+# 	user = User(email=responsePayload.email, given_name=responsePayload.given_name, 
+#                  family_name=responsePayload.family_name, access_token=response.credential)
+# 	db.session.add(user)
+# 	db.session.commit()
+# }
+
+console.log("ID: " + responsePayload.sub);
+	console.log('Full Name: ' + responsePayload.name);
+	console.log('Given Name: ' + responsePayload.given_name);
+	console.log('Family Name: ' + responsePayload.family_name);
+	console.log("Image URL: " + responsePayload.picture);
+	console.log("Email: " + responsePayload.email);
+	console.log("Email_verified: " + responsePayload.email_verified);
+
+	

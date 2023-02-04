@@ -1,6 +1,6 @@
 
 document.querySelector(".btn-submit").addEventListener("click", function() {
-	window.open("http://127.0.0.1:5000/login", "_blank");
+	window.open("https://localhost:5000/login", "_blank");
   });
   
 

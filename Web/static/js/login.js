@@ -10,6 +10,7 @@ function handleCredentialResponse(response) {
 	console.log("Image URL: " + responsePayload.picture);
 	console.log("Email: " + responsePayload.email);
 	console.log("Email_verified: " + responsePayload.email_verified);
+
 	
 	const userData = {
 		id: responsePayload.sub,
@@ -22,11 +23,15 @@ function handleCredentialResponse(response) {
 	};
 	
 	// Send the user data to the Flask app.
-	fetch("http://localhost:5000/api/user", {
+	fetch("http://127.0.0.1:5000/api/user", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify(userData)
 	});
+ }
+ function decodeJwtResponse(data){
+	var tokens = data.split(".");
+	return JSON.parse(atob(tokens[1]));
  }

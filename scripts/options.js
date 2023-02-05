@@ -1,9 +1,12 @@
 document.querySelector("#sidebar-button").addEventListener("click", function () {
-    var iframe = document.createElement("iframe");
-    iframe.src = "/ui/popup.html";
-    iframe.style.width = "650px";
-    iframe.style.height = "700px";
-    document.body.replaceWith(iframe);
-    
-    // window.opener.close();
-  });
+    console.log("Button click detected");
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        let tabId = tabs[0].id;
+        chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/script.js"] });
+        console.log("Executed 1");
+        chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/jquery.js"] }, function () {
+            chrome.scripting.executeScript({ target: { tabId: tabId } , files: ["scripts/script.js"] });
+            console.log("Executed 2");
+        });
+    });
+});

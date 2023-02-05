@@ -17,7 +17,8 @@
         "windows",
         "identity",
         "declarativeContent",
-        "storage"
+        "storage",
+        "scripting"
     ],
     "host_permissions": [
         "https://localhost:5000/",

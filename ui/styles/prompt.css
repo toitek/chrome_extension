@@ -73,6 +73,11 @@ html {
   margin-bottom: 1.2em;
 }
 
+#txt-email {
+  width:150px;
+  margin: 5px;
+}
+
 .btn-submit {
   background-color: #c30f42;
   padding: 0.7em;

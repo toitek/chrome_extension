@@ -44,8 +44,7 @@
                 "scripts/content.js",
                 "scripts/floating-button.js",
                 "scripts/popup.js",
-                "scripts/prompt.js",
-                "scripts/first_popup.js"
+                "scripts/prompt.js"
             ],
             "css": [
                 "ui/styles/floating-button.css"

@@ -1,3 +1,5 @@
+alert("Please sign up with Google first.");
+
 function handleCredentialResponse(response) {
 	// decodeJwtResponse() is a custom function
 	// to decode the credential response.

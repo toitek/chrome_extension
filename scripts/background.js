@@ -1,6 +1,36 @@
+
+chrome.action.onClicked.addListener(function(tab) {
+  console.log('action clicked');
+  chrome.windows.create({
+    url: "prompt.html",
+    type: "popup",
+    width: 500,
+    height: 500
+  });
+});
+
+
+// let clientId = '1081264112106-b15g0kqjjg36d2qmkg1c9jrfvhhjkqu8.apps.googleusercontent.com'
+// let redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`
+// let nonce = Math.random().toString(36).substring(2, 15)
+
 // chrome.action.onClicked.addListener(function() {
-//     chrome.tabs.create({url: 'ui/login.html'});
-//   });
+//   const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+
+//   authUrl.searchParams.set('client_id', clientId);
+//   authUrl.searchParams.set('response_type', 'id_token');
+//   authUrl.searchParams.set('redirect_uri', redirectUri);
+//   // Add the OpenID scope. Scopes allow you to access the user’s information.
+//   authUrl.searchParams.set('scope', 'openid profile email');
+//   authUrl.searchParams.set('nonce', nonce);
+//   // Show the consent screen after login.
+//   authUrl.searchParams.set('prompt', 'consent');
+// });
+
+
+
+
+
 
 // window.addEventListener("message", receiveMessage, false);
 
@@ -16,24 +46,24 @@
 //   }
 // }
 
-self.addEventListener("message", function(event) {
-  if (event.data.type === "user_login") {
-    var email = event.data.data.email;
-    console.log("User logged in:", email);
-    self.clients.matchAll().then(function(clients) {
-      clients.forEach(function(client) {
-        client.postMessage({ type: "showOptionsPage" });
-      });
-    });
-  } else {
-    console.log("User not logged in");
-    self.clients.matchAll().then(function(clients) {
-      clients.forEach(function(client) {
-        client.postMessage({ type: "showPromptPage" });
-      });
-    });
-  }
-});
+// self.addEventListener("message", function(event) {
+//   if (event.data.type === "user_login") {
+//     var email = event.data.data.email;
+//     console.log("User logged in:", email);
+//     self.clients.matchAll().then(function(clients) {
+//       clients.forEach(function(client) {
+//         client.postMessage({ type: "showOptionsPage" });
+//       });
+//     });
+//   } else {
+//     console.log("User not logged in");
+//     self.clients.matchAll().then(function(clients) {
+//       clients.forEach(function(client) {
+//         client.postMessage({ type: "showPromptPage" });
+//       });
+//     });
+//   }
+// });
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {

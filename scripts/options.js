@@ -1,3 +1,9 @@
 document.querySelector("#sidebar-button").addEventListener("click", function () {
-    window.open("chrome-extension://iknjnipdmpepijgnkgabgbedbimahgni/ui/popup.html", "_blank");
-});
+    var iframe = document.createElement("iframe");
+    iframe.src = "/ui/popup.html";
+    iframe.style.width = "650px";
+    iframe.style.height = "700px";
+    document.body.replaceWith(iframe);
+    
+    // window.opener.close();
+  });

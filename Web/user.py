@@ -7,7 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# app = flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:toor@localhost/web_extension'
 db = SQLAlchemy(app)
 
@@ -62,3 +61,11 @@ def save_user_data():
   print("User data added succesfully!")
   return jsonify({"message": "User data saved successfully"})
 
+@app.route("/check-email", methods=["GET"])
+def check_email():
+  email = request.args.get("email")
+  user = User.query.filter_by(email=email).first()
+  if user:
+    return jsonify({"emailPresent": True})
+  else:
+    return jsonify({"emailPresent": False})

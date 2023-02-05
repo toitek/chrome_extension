@@ -12,23 +12,66 @@ function handleCredentialResponse(response) {
 		Email_verified: responsePayload.email_verified
 	};
 	
-fetch("https://localhost:5000/api/user", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(userData)
-})
-.then(response => response.json())
-.then(data => {
-  console.log("Data saved successfully:", data);
-})
-.catch(error => {
-  console.error("Error saving data:", error);
-});
+// fetch("https://localhost:5000/api/user", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json"
+//   },
+//   body: JSON.stringify(userData)
+// })
+// .then(response => response.json())
+// .then(data => {
+//   console.log("Data sent successfully:", data);
+// })
+// .catch(error => {
+//   console.error("Error saving data:", error);
+// });
 
- }
+// $.ajax({
+// 	url: "/api/user",
+// 	type: "POST",
+// 	data: userData,
+// 	success: function(response) {
+// 	  if (response.message === "User data saved successfully" || response.message === "User with this email already exists") {
+// 		window.close();
+// 	  }
+// 	}
+//   });
+
+$.ajax({
+	type: "POST",
+	url: "/api/user",
+	data: JSON.stringify(userData),
+	contentType: "application/json; charset=utf-8",
+	dataType: "json",
+	success: function(response) {
+	  if (response.message === "User data saved successfully" || response.error === "User with this email already exists") {
+		// Get the service worker registration
+		navigator.serviceWorker.getRegistration().then(function(registration) {
+		// Check if the service worker is controlling the extension
+		if (registration.active) {
+		// Send a message to the service worker
+		registration.active.postMessage({type: 'user_login', userData: {email: 'email'}});
+		}
+		 console.log("message posted:", response)
+		});
+	  }
+	  else{
+		console.log("message not posted", response)
+	  }  
+	},
+	error: function(error) {
+	  console.error(error);
+	  console.error("Error on login:", error);
+	}
+  });
+  
+  
+
+}
  function decodeJwtResponse(data){
 	var tokens = data.split(".");
 	return JSON.parse(atob(tokens[1]));
  }
+ 
+  

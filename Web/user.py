@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, redirect, render_template, request
+from MySQLdb import IntegrityError
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 from google.oauth2.credentials import Credentials
 from flask_sqlalchemy import SQLAlchemy
 # from Web import db
@@ -41,6 +42,13 @@ def login():
 @app.route("/api/user", methods=["POST"])
 def save_user_data():
   user_data = request.get_json()
+  email = user_data["email"]
+  
+  existing_user = User.query.filter_by(email=email).first()
+  if existing_user:
+    print({"error": "User with this email already exists"})
+    return jsonify({"error": "User with this email already exists"})
+    
   user = User(
     id=user_data['id'],
     email=user_data["email"],
@@ -51,5 +59,6 @@ def save_user_data():
   )
   db.session.add(user)
   db.session.commit()
+  print("User data added succesfully!")
   return jsonify({"message": "User data saved successfully"})
 

@@ -1,23 +1,50 @@
-chrome.action.onClicked.addListener(function() {
-    chrome.tabs.create({url: 'ui/login.html'});
-  });
-
-  
-//   document.head.innerHTML = `
-//      <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
-//    `;
-
-// fetch('https://accounts.google.com/gsi/client')
-//   .then(response => response.text())
-//   .then(scriptText => {
-	
-//     const script = document.createElement('script');
-//     script.innerHTML = scriptText;
-// 	// script.nonce = nonce;
-//     document.head.appendChild(script);
+// chrome.action.onClicked.addListener(function() {
+//     chrome.tabs.create({url: 'ui/login.html'});
 //   });
-  
-  
+
+// window.addEventListener("message", receiveMessage, false);
+
+// function receiveMessage(event) {
+//   if (event.data.type === "user_login") {
+//     var email = event.data.data.email;
+//     console.log("User logged in:", event.data.data.email);
+//     chrome.runtime.sendMessage({type: "showOptionsPage"});
+//     // Do something with the email
+//   } else {
+//     console.log("User not logged in");
+//     chrome.runtime.sendMessage({type: "showPromptPage"});
+//   }
+// }
+
+self.addEventListener("message", function(event) {
+  if (event.data.type === "user_login") {
+    var email = event.data.data.email;
+    console.log("User logged in:", email);
+    self.clients.matchAll().then(function(clients) {
+      clients.forEach(function(client) {
+        client.postMessage({ type: "showOptionsPage" });
+      });
+    });
+  } else {
+    console.log("User not logged in");
+    self.clients.matchAll().then(function(clients) {
+      clients.forEach(function(client) {
+        client.postMessage({ type: "showPromptPage" });
+      });
+    });
+  }
+});
+
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.type === "showOptionsPage") {
+    chrome.browserAction.setPopup({popup: 'options.html'});
+  } else if (request.type === "showPromptPage") {
+    chrome.browserAction.setPopup({popup: 'prompt.html'});
+  }
+});
+
+
   
 // chrome.storage.local.get('signed_in', (data) => {
 //   if (data.signed_in) {

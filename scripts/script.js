@@ -10,38 +10,40 @@ if (document.documentElement) {
 } else if ($('html').length > -1) {
     html = $('html');
 } else {
-    alert('no html tag retrieved...!');
-    throw 'no html tag retrieved son.';
+    throw 'nothing fetched';
 }
 
 if (html.css('position') === 'static') {
     html.css('position', 'relative');
 }
 
-var iframeId = 'someSidebar';
+var iframeId = 'AIW-Sidebar';
 if (document.getElementById(iframeId)) {
-    alert('id:' + iframeId + 'taken please dont use this id!');
-    throw 'id:' + iframeId + 'taken please dont use this id!';
+    alert('id:' + iframeId + ' Refresh page!');
+    throw 'id:' + iframeId + 'Side bar already launched!';
 }
 
 html.append(
     '<div id="collapsableContainer">' +
-    '<div id="collapseButton">x</div>' +
+    '<div id="collapseButton" style="color: black;">x</div>' +
     '<iframe id="' + iframeId + '" scrolling="no" frameborder="0" allowtransparency="false" ' +
-    'style="position: fixed; height: ' + height + 'px; width: ' + width + 'px; background-color: #000;' +
-    'right: 0px; top: 0px; bottom: 0px;">' +
+    'style="position: fixed; height: ' + height + 'px; width: ' + width + 'px;' +
+    'right: 0px; top: 0px; bottom: 0px; z-index: 1;' +
+    'box-shadow: rgb(0 0 0 / 70%) 2px 1px 12px;' +
+    'transition: all 0.35s ease 0s;' +
+    '">' +
     '</iframe>' +
     '</div>'
 );
 
 var iframe = document.getElementById(iframeId);
-iframe.src = "https://chat.openai.com/";
+iframe.src = "http://127.0.0.1:5500/Web/templates/sidebar.html";
 
 $("#collapseButton").click(function () {
     isCollapsed = !isCollapsed;
     if (isCollapsed) {
-        $("#collapsableContainer").animate({ width: '25px' });
-        $("#" + iframeId).animate({ height: '25px' });
+        $("#collapsableContainer").animate({ width: '0' });
+        $("#" + iframeId).animate({ height: '0' });
     } else {
         $("#collapsableContainer").animate({ width: width + 'px' });
         $("#" + iframeId).animate({ height: height + 'px' });
@@ -65,5 +67,5 @@ $("#collapseButton").css({
     'font-family': 'monospace',
     'font-size': '20px',
     'color': 'rgb(85, 85, 85)',
-    'z-index': '1'
+    'z-index': '2147483648'
 });

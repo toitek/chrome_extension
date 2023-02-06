@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Writer Extension</title>
+    <link rel="stylesheet" type="text/css" href="/Web/static/css/sidebar.css">
+</head>
+
+<body>
+    <div class="write">
+        <h1>AI Writer</h1>
+        <p id="name">User: </p>
+        <textarea id="original-text"></textarea>
+        <button class="custom-btn" id="correct-grammar-btn"><span>Correct Grammar</span></button>
+        <textarea id="corrected-text"></textarea>
+
+        <select id="tone-select">
+            <option value="neutral">Neutral</option>
+            <option value="formal">Formal</option>
+            <option value="friendly">Friendly</option>
+            <option value="sarcastic">Sarcastic</option>
+        </select>
+        <button class="custom-btn" id="change-tone-btn"><span>Change Tone</span></button>
+        <textarea id="toned-text"></textarea>
+        
+        <button type="button" class="btn btn-danger" onclick="signOut();">Sign out</button>
+    </div>
+    <script src="/Web/static/js/sidebar.js"></script>
+    <script src="/scripts/content.js"></script>
+    <!-- <script src="/scripts/oauth.js"></script> -->
+</body>
+
+</html>

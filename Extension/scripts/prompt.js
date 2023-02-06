@@ -35,7 +35,7 @@ document.getElementById("submit").addEventListener("click", function() {
 });
 
 function openLogin(){
-  window.open("https://localhost:5000/login", "_blank");
+  window.open("https://localhost:5000/extensionApp/ui/views/auth/register.html", "_blank");
   
 }
 // function openLogin() {

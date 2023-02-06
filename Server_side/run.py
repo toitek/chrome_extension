@@ -1,7 +1,7 @@
 import os
 # from user import app
 from flask_sqlalchemy import SQLAlchemy
-from user import db
+# from user import db
 from user import *
 import datetime
 import logging
@@ -93,10 +93,10 @@ db = SQLAlchemy(app, model_class=BaseModel)
 #       and its only for development and testing purposes
 #       it includes the ssl_context inside app.run()
 # STARTS HERE
-with open('Web/cert.pem', 'r') as f:
+with open('cert.pem', 'r') as f:
     cert = f.read()
 
-with open('Web/key.pem', 'r') as f:
+with open('key.pem', 'r') as f:
     key = f.read()
 
 os.environ['SSL_CERT'] = cert

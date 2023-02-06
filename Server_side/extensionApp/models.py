@@ -27,13 +27,19 @@ class User(db.Model):
   def __repr__(self):
     return '<User {}>'.format(self.email, self.given_name, self.family_name, self.image_url, self.email_verified)
 
+# check this model...
 
-class Subscription(db.model):
+class Subscription(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  given_name = db.Column(db.String(100), nullable=False)
-  stripe_token = db.Column(db.String(255), nullable=False)
-  stripe_customer_id = db.Column(db.String(255), nullable=True)
+  stripe_token = db.Column(db.String(120), nullable=False)
   last_four = db.Column(db.String(4), nullable=False)
+  stripe_customer_id = db.Column(db.String(120), nullable=False)
+  user_id = db.Column(db.Integer, sqlalchemy.ForeignKey('user.id'))
+  user = db.relationship('User', backref=db.backref('subscriptions', lazy=True))
+  given_name = db.Column(db.String(100), sqlalchemy.ForeignKey('user.given_name'))
+  stripe_token = db.Column(db.String(255), nullable=False)
+  # stripe_customer_id = db.Column(db.String(255), nullable=True)
+
 
   # @declared_attr
   # def stripe_token(self):

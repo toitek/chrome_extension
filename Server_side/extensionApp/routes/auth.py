@@ -3,7 +3,7 @@ from flask import Flask, abort, jsonify, redirect, render_template, request, url
 from flask_login import current_user, login_required, login_user, logout_user
 from jinja2 import TemplateNotFound
 
-from Server_side.run import app
+from run import app
 # from extensionApp.ui.forms.login_form import LoginForm
 from extensionApp.ui.forms.register_form import *
 from extensionApp.ui.forms.subscription_form import *
@@ -76,75 +76,57 @@ def register():
 
     user_data = Register()
     if user_data.validate_on_submit():
-        try:
             user = user_data.create_user()
             login_user(user)
             return redirect("/dashboard")
-        except stripe.error.CardError as e:
-            body = e.json_body
-            err = body.get("error", {})
-            user_data.stripeToken.errors.append(
-                "We could not process your information. {}".format(err.get("message")))
-        except stripe.error.RateLimitError as e:
-            user_data.stripeToken.errors.append(
-                "We cannot currently access out payment provider. Try again soon or reach out to the support team."
-            )
-        except stripe.error.InvalidRequestError as e:
-            user_data.stripeToken.errors.append(
-                "We cannot currently access out payment provider. Try again soon or reach out to the support team."
-            )
-        except stripe.error.AuthenticationError as e:
-            user_data.stripeToken.errors.append(
-                "We cannot currently access out payment provider. Try again soon or reach out to the support team."
-            )
-        except stripe.error.APIConnectionError as e:
-            user_data.stripeToken.errors.append(
-                "We cannot currently access out payment provider. Try again soon or reach out to the support team."
-            )
-        except stripe.error.StripeError as e:
-            user_data.stripeToken.errors.append(
-                "There was a problem with the payment information.")
-
     try:
         return render_template("views/auth/register.html", user_data=user_data)
     except TemplateNotFound:
         abort(404)
 
 
-@app.route("/subscription")
+@app.route("/subscription", methods=["GET", "POST"])
 def subscription():
-    form = Subscription()    
-    try:
-        user = form.user_subscription()
-        login_user(user)
-        return redirect("/dashboard")
-    except stripe.error.CardError as e:
-        body = e.json_body
-        err = body.get("error", {})
-        form.stripeToken.errors.append(
-        "We could not process your information. {}".format(err.get("message")))
-    except stripe.error.RateLimitError as e:
-        form.stripeToken.errors.append(
-        "We cannot currently access out payment provider. Try again soon or reach out to the support team."
-        )
-    except stripe.error.InvalidRequestError as e:
-        form.stripeToken.errors.append(
-            "We cannot currently access out payment provider. Try again soon or reach out to the support team."
-        )
-    except stripe.error.AuthenticationError as e:
-        form.stripeToken.errors.append(
-            "We cannot currently access out payment provider. Try again soon or reach out to the support team."
+    form = Subscription()
+    if form.validate_on_submit():
+        user = User.query.get(current_user.id)
+        subscription = Subscription(user_id=user.id, given_name=user.givenName)
+        subscription.stripeToken = form.stripeToken.data
+        subscription.lastFour = form.lastFour.data
+        try:
+            customer, _ = subscription.register_to_stripe()
+            subscription.stripe_customer_id = customer.id
+            db.session.add(subscription)
+            db.session.commit()
+            return redirect("/dashboard")
+        except stripe.error.CardError as e:
+            body = e.json_body
+            err = body.get("error", {})
+            form.stripeToken.errors.append(
+                "We could not process your information. {}".format(err.get("message"))
             )
-    except stripe.error.APIConnectionError as e:
-        form.stripeToken.errors.append(
+        except stripe.error.RateLimitError as e:
+            form.stripeToken.errors.append(
                 "We cannot currently access out payment provider. Try again soon or reach out to the support team."
             )
-    except stripe.error.StripeError as e:
-        form.stripeToken.errors.append(
-                "There was a problem with the payment information.")
-    except TemplateNotFound:
-        abort(404)
-    return render_template("views/auth/subscription.html")
+        except stripe.error.InvalidRequestError as e:
+            form.stripeToken.errors.append(
+                "We cannot currently access out payment provider. Try again soon or reach out to the support team."
+            )
+        except stripe.error.AuthenticationError as e:
+            form.stripeToken.errors.append(
+                "We cannot currently access out payment provider. Try again soon or reach out to the support team."
+            )
+        except stripe.error.APIConnectionError as e:
+            form.stripeToken.errors.append(
+                "We cannot currently access out payment provider. Try again soon or reach out to the support team."
+            )
+        except stripe.error.StripeError as e:
+            form.stripeToken.errors.append("There was a problem with the payment information.")
+        except TemplateNotFound:
+            abort(404)
+    return render_template("views/auth/subscription.html", form=form)
+
 
 @app.route("/logout")
 @login_required

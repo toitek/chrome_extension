@@ -10,10 +10,10 @@ from Web.user import *
 #       and its only for development and testing purposes
 #       it includes the ssl_context inside app.run()
 # STARTS HERE
-with open('cert.pem', 'r') as f:
+with open('Web/cert.pem', 'r') as f:
     cert = f.read()
 
-with open('key.pem', 'r') as f:
+with open('Web/key.pem', 'r') as f:
     key = f.read()
 
 os.environ['SSL_CERT'] = cert

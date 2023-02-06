@@ -1,44 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
-    <style>
-      body, html {
-        font: 13px/18px Roboto,sans-serif;
-        width: 250px;
-        margin: 0;
-        padding: 0;
-        background-color: #f8f8f8;
-        color: #333;
-        text-align: left;
-      }
-      .my-button {
-        width: 115%;
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous"> -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="/ui/styles/options.css" />
+
+  <!-- <style>
+    body,
+    html {
+      font: 13px/18px Roboto, sans-serif;
+      width: 250px;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+      color: #333;
+      text-align: left;
     }
-    </style>
-    <!-- <title>Options Page</title> -->
-  </head>
-  <body>
-    <div class="container">
-      <!-- <h1 class="text-center mt-2">Options Page</h1> -->
-      <img src="/icons/icon128.png" class="mb-3" style="display: block; margin: 0 auto; padding-top: 4px;">
-      <div class="row justify-content-center mt-5">
-        <div class="col-6">
+
+    .my-button {
+      width: 115%;
+    }
+  </style> -->
+  <!-- <title>Options Page</title> -->
+</head>
+
+<body>
+  <header>
+    <img src="/icons/icon128.png" class="mb-3" style="display: block; margin: 0 auto; padding-top: 4px;">
+    <div class="user">User:</div>
+    <button type="button" class="my-button" id="user-button">Login</button>
+  </header>
+  <div class="container">
+
+    <div class="row justify-content-center mt-5">
+      <div class="col-6">
+        <div class="flex">
           <div class="text-center">
-            <button type="button" class="btn btn-primary mb-3 my-button" id="enable-button">Enable</button>
-            <button type="button" class="btn btn-secondary mb-3 my-button" id="disable-button">Disable</button>
-            <button type="button" class="btn btn-success mb-3 my-button" id="sidebar-button">Sidebar</button>
-            <button type="button" class="btn btn-warning mb-3 my-button" id="premium-button">
-            <i class="fas fa-gem"></i> Go Premium
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>            
+            <button type="button" class="my-button" id="sidebar-button">Sidebar</button>
+            <button type="button" class="my-button" id="premium-button">
+              <i class="fas fa-gem"></i> Go Premium
             </button>
+          </div>
+          <div class="info">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio laborum alias dolor nostrum eaque, blanditiis ipsam sunt itaque corrupti reprehenderit praesentium quasi dicta soluta, ratione doloribus deleniti ab facilis dolorum.</p>
           </div>
         </div>
       </div>
     </div>
-    <script src="/scripts/options.js"></script>
-  </body>
+  </div>
+  <script src="/scripts/options.js"></script>
+</body>
+
 </html>

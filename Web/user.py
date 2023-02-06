@@ -7,13 +7,13 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sam:ksam8657@localhost/web_extension'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:toor@localhost/web_extension'
 db = SQLAlchemy(app)
 
 
 
 class User(db.Model):
-  id = db.Column(db.Numeric(38,0), primary_key=True)
+  id = db.Column(db.Numeric(38, 0), primary_key=True)
   email = db.Column(db.String(100), unique=True, nullable=False)
 #   access_token = db.Column(db.Text, nullable=False)
   given_name = db.Column(db.String(100), nullable=False)

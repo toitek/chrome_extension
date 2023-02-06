@@ -56,6 +56,15 @@
         "service_worker": "scripts/background.js"
     },
     "action": {
-        "default_popup": "ui/prompt.html"
-    }
+        "default_popup": "ui/options.html"
+    },
+    "options_page": "ui/options.html",
+    "options_ui": {
+        "page": "ui/options.html",
+        "open_in_tab": true
+  },
+    "web_accessible_resources": [{ 
+        "resources": ["ui/prompt.html", "ui/options.html", "ui/popup.html"],
+        "matches":["https://localhost:5000/*", "https://www.google.com/*", "<all_urls>"]
+    }]
 }

@@ -3,7 +3,7 @@
 // 	window.open("https://localhost:5000/login", "_blank");
 //   });
   
-  
+document.addEventListener("DOMContentLoaded", function() { 
 document.getElementById("submit").addEventListener("click", function() {
   var email = document.getElementById("txt-email").value;
 
@@ -16,37 +16,36 @@ document.getElementById("submit").addEventListener("click", function() {
         var response = JSON.parse(xhr.responseText);
         if (response.emailPresent) {
           // Email is present in the database, open the options page
-          openOptionsPopup();
+          console.log("email is present")
+          chrome.storage.local.set({ "userData": email })
+          
         } else {
           // Email is not present in the database, open the login page
-          openLoginPopup();
+          console.log("email not present")
+          openLogin();
         }
       } else {
         // Error occurred, open the login page
-        openLoginPopup();
+        openLogin();
       }
     }
   };
   xhr.send();
 });
+});
 
-function openOptionsPopup() {
-  chrome.windows.create({
-    url: "/ui/options.html",
-    type: "popup",
-    width: 250,
-    height: 400
-  });
+function openLogin(){
+  window.open("https://localhost:5000/login", "_blank");
+  
 }
-
-function openLoginPopup() {
-  chrome.windows.create({
-    url: "https://localhost:5000/login",
-    type: "popup",
-    width: 500,
-    height: 500
-  });
-}
+// function openLogin() {
+//   chrome.windows.create({
+//     url: "https://localhost:5000/login",
+//     type: "popup",
+//     width: 500,
+//     height: 500
+//   });
+// }
 
 
 

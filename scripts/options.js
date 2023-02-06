@@ -10,3 +10,6 @@ document.querySelector("#sidebar-button").addEventListener("click", function () 
         });
     });
 });
+document.querySelector("#user-button").addEventListener("click", function() {
+    	window.open("https://localhost:5000/login", "_blank");
+      });

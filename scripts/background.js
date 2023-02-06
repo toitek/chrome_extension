@@ -1,14 +1,34 @@
 
 chrome.action.onClicked.addListener(function(tab) {
-  console.log('action clicked');
-  chrome.windows.create({
-    url: "prompt.html",
-    type: "popup",
-    width: 500,
-    height: 500
+  // console.log('action clicked');
+  // chrome.windows.create({
+  //   url: "prompt.html",
+  //   type: "popup",
+  //   width: 500,
+  //   height: 500
+  // });
+  
+  // Check if there's an existing login instance in the Chrome storage
+  chrome.storage.local.get("userData", function(result) {
+  if (result.userData) {
+  // Login instance found, open the options popup
+  console.log("User data is present in the storage: ", result.userData);
+  chrome.action.setPopup({popup: 'ui/options.html'});
+  } else {
+  // Login instance not found, open the login popup
+  console.log("User data is not present in the storage");
+  // openLoginPrompt();
+  chrome.action.setPopup({popup: 'ui/prompt.html'});
+  }
   });
 });
 
+// function openLoginPrompt() {
+//     chrome.windows.create({
+//       url: "/ui/prompt.html",
+//       type: "popup"
+//     });
+//   }
 
 // let clientId = '1081264112106-b15g0kqjjg36d2qmkg1c9jrfvhhjkqu8.apps.googleusercontent.com'
 // let redirectUri = `https://${chrome.runtime.id}.chromiumapp.org/`

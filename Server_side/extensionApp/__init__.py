@@ -1,9 +1,19 @@
-# from . import run
+from flask import Flask
+from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
 
-from . import auth
-from . import error_handler
-from . import routes
-from . import ui
-from . import utils
+# name = "extensionApp"
 
-name = "extensionApp"
+
+
+# env = utils.environment()
+
+app = Flask(__name__)
+
+# Enable the login manager library...
+app.login_manager = LoginManager(app)
+# app.secret_key = env["app"]["secret"]
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:toor@localhost/web_extension'
+db = SQLAlchemy(app)

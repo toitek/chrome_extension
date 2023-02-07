@@ -1,7 +1,7 @@
 # from flask import abort, render_template
 # from jinja2 import TemplateNotFound
 
-# from Web.run import app
+# from run import app
 
 
 # @app.route("/")

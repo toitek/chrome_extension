@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, validators
 from werkzeug.security import generate_password_hash
 from extensionApp import models, utils
-from Server_side.run import db
+from archieve.run import db
 from extensionApp.models import *
 
 class Subscription():

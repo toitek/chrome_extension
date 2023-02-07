@@ -1,19 +1,17 @@
+import datetime
+from flask_login import UserMixin
 import sqlalchemy
-from flask import url_for
-from flask_login.mixins import UserMixin
-from sqlalchemy.ext.declarative import declared_attr
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from run import app, db
+from extensionApp import db
 
 
-class User(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
+class User(db.Model, UserMixin):
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
   email = db.Column(db.String(100), unique=True, nullable=False)
   given_name = db.Column(db.String(100), nullable=False)
   family_name = db.Column(db.String(100), nullable=False)
   image_url = db.Column(db.String(200), nullable=False)
   email_verified = db.Column(db.Boolean, nullable=False)
+  created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow, nullable=False)
       
 
   def __init__(self, id, email, given_name, family_name, image_url, email_verified):
@@ -29,8 +27,8 @@ class User(db.Model):
 
 # check this model...
 
-class Subscription(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
+class Subscription(db.Model, UserMixin):
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
   stripe_token = db.Column(db.String(120), nullable=False)
   last_four = db.Column(db.String(4), nullable=False)
   stripe_customer_id = db.Column(db.String(120), nullable=False)
@@ -38,7 +36,13 @@ class Subscription(db.Model):
   user = db.relationship('User', backref=db.backref('subscriptions', lazy=True))
   given_name = db.Column(db.String(100), sqlalchemy.ForeignKey('user.given_name'))
   stripe_token = db.Column(db.String(255), nullable=False)
+  subscribed_at = db.Column(db.DateTime, default=datetime.datetime.utcnow, nullable=False)
   # stripe_customer_id = db.Column(db.String(255), nullable=True)
+
+
+
+
+
 
 
   # @declared_attr
@@ -52,13 +56,6 @@ class Subscription(db.Model):
   # @declared_attr
   # def stripe_customer_id(self):
   #     return sqlalchemy.Column(sqlalchemy.String(255), nullable=True)
-
-
-
-
-
-
-
 
 
 

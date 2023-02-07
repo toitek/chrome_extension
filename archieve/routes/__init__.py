@@ -1,3 +1,3 @@
-from . import auth
+from . import routes
 from . import dashboard
 from . import guest

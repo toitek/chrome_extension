@@ -1,6 +1,6 @@
 from flask import render_template
 
-from run import app
+from extensionApp import app
 
 
 @app.errorhandler(500)

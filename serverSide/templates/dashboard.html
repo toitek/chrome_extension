@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Payment Dashboard</title>
+  </head>
+  <body>
+    {% if not current_user %}
+      <h2>Please log in to access the Premium subscription dashboard</h2>
+      <form action="/login" method="get">
+        <button type="submit">Login</button>
+      </form>
+    {% else %}
+      <h2>Welcome to Premium Subscription Dashboard</h2>
+      <h3>Sign up for a 2-day free trial</h3>
+      <form action="/start_trial" method="post">
+        <button type="submit">Start Free Trial</button>
+      </form>
+      <h3>Purchase credits</h3>
+      <form action="/purchase_credits" method="post">
+        <input type="text" name="credit_amount">
+        <button type="submit">Purchase Credits</button>
+      </form>
+      <h3>Subscribe to monthly plan</h3>
+      <form action="/subscribe" method="post">
+        <button type="submit">Subscribe</button>
+      </form>
+      <form action="/logout" method="get">
+        <button type="submit">Logout</button>
+      </form>
+    {% endif %}
+  </body>
+</html>

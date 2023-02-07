@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="../static/css/login_style.css") }}">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+
+  <body>
+    <div class="logo-wrapper">
+      <img class="logo" alt="Logo" src="../static/img/icon128.png" />
+    </div>
+
+    <div class="content-body">
+      <div class="form-wrapper">
+        <h1 class="text-title">Please log into your account</h1>
+        <!--<div class="text-register">Don't have an account yet? <a href="#">Register here</a></div>
+
+        <div class="field-group">
+          <input
+            class="input"
+            type="text"
+            id="txt-email"
+            name="email"
+            placeholder="E-mail / Username"
+          />
+          <input class="input" type="password" id="txt-password" name="password" placeholder="Password" />
+        </div>
+
+        <div class="field-group-inline">
+          <label for="chk-rememberme">
+            <input class="checkbox" type="checkbox" id="chk-rememberme" name="rememberme" />
+            Remember me
+          </label>
+          <a href="#forget-password"> Forgot the password? </a>
+        </div>
+
+        <div class="field-group">
+          <input class="btn-submit" type="submit" value="Login" />
+        </div>
+
+        <div class="separator-wrapper">
+          <div class="separator">
+            <span>OR</span>
+          </div>
+        </div> -->
+
+        <div class="field-group">
+          
+          <!-- <a href="#login-google" class="link-social-login">
+            <img src="./google-logo.png" />
+            Login dengan Google
+          </a> -->
+          <div id="g_id_onload"
+                data-client_id="1081264112106-06vrkigqa5a8eh2n3u5p1ibq1fppcc5d.apps.googleusercontent.com"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-callback="handleCredentialResponse"
+                data-auto_prompt="false">
+            </div>
+        
+            <div class="g_id_signin"
+                data-type="standard"
+                data-shape="pill"
+                data-theme="filled_blue"
+                data-text="signin_with"
+                data-size="large"
+                data-logo_alignment="left">
+            </div>
+        </div>
+
+        <div class="footnote-wrapper">
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <!-- <a href="#"> Back to Home </a>-->
+      <span class="author">
+        © 2023
+      </span>
+    </footer>
+    <script src="{{ url_for('static', filename='../static/js/login.js') }}"></script>
+  </body>
+</html>

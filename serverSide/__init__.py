@@ -1,5 +1,7 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import stripe
 
 
 app = Flask(__name__)
@@ -11,3 +13,6 @@ db = SQLAlchemy(app)
 
 app.config["SESSION_COOKIE_SAMESITE"] = "None"
 app.config["SESSION_COOKIE_SECURE"] = True
+
+# Set the stripe API key
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')

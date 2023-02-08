@@ -10,23 +10,33 @@
         <button type="submit">Login</button>
       </form>
     {% else %}
-      <h2>Welcome to Premium Subscription Dashboard</h2>
-      <h3>Sign up for a 2-day free trial</h3>
-      <form action="/start_trial" method="post">
-        <button type="submit">Start Free Trial</button>
-      </form>
-      <h3>Purchase credits</h3>
-      <form action="/purchase_credits" method="post">
-        <input type="text" name="credit_amount">
-        <button type="submit">Purchase Credits</button>
-      </form>
-      <h3>Subscribe to monthly plan</h3>
-      <form action="/subscribe" method="post">
-        <button type="submit">Subscribe</button>
-      </form>
-      <form action="/logout" method="get">
-        <button type="submit">Logout</button>
-      </form>
+      <h2>Welcome to Premium Dashboard</h2>
+      
+      {% if current_user.account_status == "free" %}
+        <p>You currently have no active subscriptions. Please select one from the ones avilable</p>
+          
+        <h3>Free trial or Premium</h3>
+        <form action="/payment" method="post">
+          <button type="submit" value="trial">View Premium Deals</button>
+        </form>
+      {% elif current_user.account_status == "trial" %}
+        <p>You are currently on a trial plan.</p>
+        <p>Trial starts on: {{ current_user.trial_start_date }}</p>
+        <p>Trial ends on: {{ current_user.trial_end_date }}</p>
+      {% elif current_user.account_status == "monthly" %}
+        <p>You are currently subscribed to the $100 monthly plan.</p>
+        <p>Subscription end date: {{ current_user.subscription_end_date }}</p>
+        <!--<p>Your next payment of {{ current_user.monthly_charge }} will be charged on {{ current_user.next_payment_date }}.</p>-->
+      {% elif current_user.account_status == "credits" %}
+        <p>Credits Summary</p>
+        <p>You have {{ current_user.credits }} credits.</p>
+        <!--<p> Your last purchase was on {{ current_user.last_purchase_date }}.</p>-->
+      {% endif %}
+        <br>
+        <form action="/logout" method="get">
+          <button type="submit">Logout</button>
+        </form>
+        <br>
     {% endif %}
   </body>
 </html>

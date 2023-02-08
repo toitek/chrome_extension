@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Payment Dashboard</title>
+  </head>
+  <body>
+    {%if current_user.account_status == "free" or current_user.account_status == "trial"%}
+      {% if error %}
+        <h3 style="color: red;">{{ error }}</h3>
+      {% endif %}
+
+      <h2>Payment Options</h2>
+      <form method="post">
+        <h3>Sign up for a 2-day free trial</h3>
+        <form method="post">  
+        <button type="submit" value="start_trial">Start Free Trial</button>
+        </form>
+        <h3>Purchase Credits</h3>
+        <p>Price per credit: $0.50</p>
+        <p>Number of credits to purchase: <input type="number" name="credits_amount"></p>
+        <form method="post">
+        <button type="submit" value="credits">Purchase</button>
+        </form>
+        <p>Total cost: ${{ 0.5 * current_user.credits }}</p>
+
+        <h3>Monthly Subscription</h3>
+        <p>Monthly subscription cost: $100</p>
+        <form method="post">
+          <button type="submit" value="monthly">Subscribe</button>
+        </form>
+    {%else%}
+        <p>You already have an active subscription</p>
+    {%endif%}
+      <form action="/dashboard" method="get">
+        <button type="submit">Dashboard</button>
+      </form>
+    </form> 
+  </body>
+</html>

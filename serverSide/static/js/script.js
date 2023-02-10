@@ -37,7 +37,7 @@ html.append(
 );
 
 var iframe = document.getElementById(iframeId);
-iframe.src = "chrome-extension://ndnlhjahpahmimoeikmpjefmcaghcdka/ui/popup.html";
+iframe.src = "https://localhost:5000/sidebar";
 
 $("#collapseButton").click(function () {
     isCollapsed = !isCollapsed;

@@ -1,0 +1,33 @@
+body {
+    background-color: #f3f3f3;
+    font-family: Arial, sans-serif;
+  }
+  
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .error-number {
+    font-size: 72px;
+    font-weight: bold;
+    color: #ff6b6b;
+  }
+  
+  .error-message {
+    font-size: 24px;
+    color: #333;
+    margin-top: 24px;
+  }
+  
+  .back-link {
+    font-size: 18px;
+    color: #333;
+    margin-top: 24px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  

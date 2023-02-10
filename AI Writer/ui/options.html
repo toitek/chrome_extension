@@ -32,20 +32,21 @@
 <body>
   <header>
     <img src="/icons/icon128.png" class="mb-3" style="display: block; margin: 0 auto; padding-top: 4px;">
-    <div class="user">User:</div>
-    <button type="button" class="my-button" id="user-button">Login</button>
+    <div class="user">User: <span id="user-email"></span></div>
+    <button type="button" class="my-button" id="user-button">Sign Up</button>
   </header>
   <div class="container">
-
+    <p>Enable/Disable AI Writer
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label> </p>
     <div class="row justify-content-center mt-5">
       <div class="col-6">
         <div class="flex">
           <div class="text-center">
-            <label class="switch">
-              <input type="checkbox">
-              <span class="slider round"></span>
-            </label>            
-            <button type="button" class="my-button" id="sidebar-button">Sidebar</button>
+                       
+            <button type="button" class="my-button" id="sidebar-button">Launch Sidebar</button>
             <button type="button" class="my-button" id="premium-button">
               <i class="fas fa-gem"></i> Go Premium
             </button>

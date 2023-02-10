@@ -1,42 +1,117 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!--<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">-->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     <title>Payment Dashboard</title>
   </head>
   <body>
-    {% if not current_user %}
-      <h2>Please log in to access the Premium subscription dashboard</h2>
-      <form action="/login" method="get">
-        <button type="submit">Login</button>
-      </form>
-    {% else %}
-      <h2>Welcome to Premium Dashboard</h2>
+    
+      <h2>Welcome to AI Writer</h2>
       
-      {% if current_user.account_status == "free" %}
-        <p>You currently have no active subscriptions. Please select one from the ones avilable</p>
-          
-        <h3>Free trial or Premium</h3>
-        <form action="/payment" method="post">
-          <button type="submit" value="trial">View Premium Deals</button>
-        </form>
-      {% elif current_user.account_status == "trial" %}
-        <p>You are currently on a trial plan.</p>
-        <p>Trial starts on: {{ current_user.trial_start_date }}</p>
-        <p>Trial ends on: {{ current_user.trial_end_date }}</p>
-      {% elif current_user.account_status == "monthly" %}
-        <p>You are currently subscribed to the $100 monthly plan.</p>
-        <p>Subscription end date: {{ current_user.subscription_end_date }}</p>
-        <!--<p>Your next payment of {{ current_user.monthly_charge }} will be charged on {{ current_user.next_payment_date }}.</p>-->
-      {% elif current_user.account_status == "credits" %}
-        <p>Credits Summary</p>
-        <p>You have {{ current_user.credits }} credits.</p>
-        <!--<p> Your last purchase was on {{ current_user.last_purchase_date }}.</p>-->
-      {% endif %}
-        <br>
-        <form action="/logout" method="get">
-          <button type="submit">Logout</button>
-        </form>
-        <br>
-    {% endif %}
+      <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills float-right">
+                    <li class="nav-item">
+                        <!--<a class="nav-link active" href="{{ url_for('dashboard') }}">Home</a>-->
+                    </li>
+                </ul>
+            </nav>
+            <h3>Premium Dashboard</h3>
+            <!--<a href="{{ url_for('sidebar') }}" id="onetime" class="btn btn-primary">Sidebar</a>-->
+        </div>
+        
+        <div id="notification-button">
+          <p id="notification-text"></p>
+        </div>
+        
+        {#
+          <div class="product">
+              <h1 class="display-3">Free Trial</h1>
+              <p class="lead">Enjoy 2 days free trial to get an experience of our extension's capabilities</p>
+              <a href="{{ url_for('free_trial') }}" id="free" class="btn btn-primary">Start Free</a>
+          </div>
+        
+        <div class="product">
+            <h1 class="display-3">Credits</h1>
+            <p class="lead">Purchase 1000 usage credits for only $10.<br>You can also refill them to have as many credits as you need.<br></p>
+            <a href="#" id="onetime" class="btn btn-primary">Checkout</a>
+        </div>
+        #}
+        
+        <section>
+          <div class="product">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="16px" viewBox="0 0 14 16" version="1.1">
+                <defs/>
+                <g id="Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="0-Default" transform="translate(-121.000000, -40.000000)" fill="#E184DF">
+                        <path d="M127,50 L126,50 C123.238576,50 121,47.7614237 121,45 C121,42.2385763 123.238576,40 126,40 L135,40 L135,56 L133,56 L133,42 L129,42 L129,56 L127,56 L127,50 Z M127,48 L127,42 L126,42 C124.343146,42 123,43.3431458 123,45 C123,46.6568542 124.343146,48 126,48 L127,48 Z" id="Pilcrow"/>
+                    </g>
+                </g>
+            </svg>
+            <div class="description">
+              <h3>Free Trial</h3>
+              <h5>Enjoy 2 days free trial to get an experience of our extension's capabilities</h5>
+            </div>
+          </div>
+            <button id="checkout-and-portal-button" type="submit"><a href="{{ url_for('free_trial') }}" id="free" class="btn btn-primary">Start</button></a>
+        </section>
+        <section>
+          <div class="product">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="16px" viewBox="0 0 14 16" version="1.1">
+                <defs/>
+                <g id="Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="0-Default" transform="translate(-121.000000, -40.000000)" fill="#E184DF">
+                        <path d="M127,50 L126,50 C123.238576,50 121,47.7614237 121,45 C121,42.2385763 123.238576,40 126,40 L135,40 L135,56 L133,56 L133,42 L129,42 L129,56 L127,56 L127,50 Z M127,48 L127,42 L126,42 C124.343146,42 123,43.3431458 123,45 C123,46.6568542 124.343146,48 126,48 L127,48 Z" id="Pilcrow"/>
+                    </g>
+                </g>
+            </svg>
+            <div class="description">
+              <h3>Monthly plan (unlimited credits)</h3>
+              <h5>$100.00 / month</h5>
+            </div>
+          </div>
+          <form action="/create-checkout-session" method="POST">
+            <!-- Add a hidden field with the lookup_key of your Price -->
+            <input type="hidden" name="lookup_key" value="unlimited" />
+            <button id="checkout-and-portal-button" type="submit">Checkout</button>
+          </form>
+        </section>
+        
+        
+        <section>
+          <div class="product">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="16px" viewBox="0 0 14 16" version="1.1">
+                <defs/>
+                <g id="Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="0-Default" transform="translate(-121.000000, -40.000000)" fill="#E184DF">
+                        <path d="M127,50 L126,50 C123.238576,50 121,47.7614237 121,45 C121,42.2385763 123.238576,40 126,40 L135,40 L135,56 L133,56 L133,42 L129,42 L129,56 L127,56 L127,50 Z M127,48 L127,42 L126,42 C124.343146,42 123,43.3431458 123,45 C123,46.6568542 124.343146,48 126,48 L127,48 Z" id="Pilcrow"/>
+                    </g>
+                </g>
+            </svg>
+            <div class="description">
+              <h3>Credits</h3>
+              <h5>Purchase 1000 usage credits for only $10.</h5>
+            </div>
+          </div>
+          <button id="checkout-and-portal-button" type="submit"><a href="#" id="onetime" class="btn btn-primary">Start</button></a>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; AI writer 2023</p>
+        </footer>
+        <script src="https://js.stripe.com/v3/"></script>
+        <!--
+        <script>
+            const checkout_public_key = '{{checkout_public_key}}';
+            const checkout_session_id = '{{checkout_session_id}}';
+        </script>
+        -->
+        <script src="{{ url_for('static', filename='js/script-ajax.js') }}"></script>
+
+    </div>
+        
+        <a class="nav-link active" href="{{ url_for('logout') }}">Sign Out</a> 
   </body>
 </html>

@@ -13,3 +13,27 @@ document.querySelector("#sidebar-button").addEventListener("click", function () 
 document.querySelector("#user-button").addEventListener("click", function() {
     	window.open("https://localhost:5000/login", "_blank");
       });
+      
+      
+document.querySelector("#premium-button").addEventListener("click", function() {
+    	window.open("https://localhost:5000/dashboard", "_blank");
+      });
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        fetch('https://localhost:5000/get_user_email')
+          .then(response => response.json())
+          .then(data => {
+            const email = data.email;
+            const emailElement = document.getElementById('user-email');
+            emailElement.textContent = email;
+            if (email) {
+              document.querySelector("#sidebar-button").removeAttribute("disabled");
+            } else {
+              document.querySelector("#sidebar-button").setAttribute("disabled", "true");
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      });
+      

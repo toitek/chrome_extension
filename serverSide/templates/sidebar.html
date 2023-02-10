@@ -3,7 +3,7 @@
 
 <head>
     <title>AI Writer Extension</title>
-    <link rel="stylesheet" type="text/css" href="/Web/static/css/sidebar.css">
+    <link href="{{ url_for('static', filename='css/sidebar.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -23,11 +23,11 @@
         <button class="custom-btn" id="change-tone-btn"><span>Change Tone</span></button>
         <textarea id="toned-text"></textarea>
         
-        <button type="button" class="btn btn-danger" onclick="signOut();">Sign out</button>
+        <a class="nav-link active" href="{{ url_for('logout') }}">Sign Out</a>
     </div>
-    <script src="/Web/static/js/sidebar.js"></script>
-    <script src="/scripts/content.js"></script>
-    <!-- <script src="/scripts/oauth.js"></script> -->
+    <link href="{{ url_for('static', filename='js/sidebar.js') }}" rel="stylesheet">
+    <!--<script src="/scripts/content.js"></script>
+    <script src="/scripts/oauth.js"></script> -->
 </body>
 
 </html>

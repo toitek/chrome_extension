@@ -12,14 +12,17 @@
 //           }
 //       });
 // });
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.message === "update_selected_text") {
-    sendResponse({ack:"message received"})
-      var selectedText = request.selectedText;
-      console.log(selectedText);
-      document.getElementById("original-text").value = selectedText;
-  }
-});
+
+// document.addEventListener('DOMContentLoaded', function () {
+//   chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//     if (request.message === "update_selected_text") {
+//       sendResponse({ack:"message received"})
+//         var selectedText = request.selectedText;
+//         console.log(selectedText);
+//         document.getElementById("original-text").value = selectedText;
+//     }
+//   });
+// });
 
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -30,9 +33,12 @@ const changeToneBtn = document.getElementById("change-tone-btn");
 const toneSelect = document.getElementById("tone-select");
 const tonedText = document.getElementById("toned-text");
 
+console.log("script active");
+
 correctGrammarBtn.addEventListener("click", async () => {
     // Send the original text to the GPT-3 API to get corrected
-    const response = await fetch('https://api.openai.com/v1/engines/text-davinci-edit-001/edits', {
+    
+    fetch('https://api.openai.com/v1/engines/text-davinci-edit-001/edits', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,15 +49,26 @@ correctGrammarBtn.addEventListener("click", async () => {
         instruction: "Fix the grammar mistakes",
         temperature: 0.7
       })
-    });
-    const data = await response.json();
-    if (data.hasOwnProperty('choices') && data.choices.length > 0) {
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        correctedText.innerHTML = data.choices[0].text;
+      })
+    .catch(error => {
+        console.error(error);
+        correctedText.innerHTML = "Sorry, unable to correct the grammar for the provided text";
+      });
+    // const data = await response.json();
+    // if (data.hasOwnProperty('choices') && data.choices.length > 0) {
       // Extract the corrected text from the API response
-      correctedText.value = data.choices[0].text;
-    } else {
+      // console.log("corrected text");
+      // correctedText.innerHTML = data.choices[0].text;
+    // } else {
       // Handle the case where the API returns an empty array of choices
-      correctedText.value = "Sorry, unable to correct the grammar for the provided text";
-    }
+      // correctedText.innerHTML = "Sorry, unable to correct the grammar for the provided text";
+      // console.log("error correcting");
+    // }
 });
 
 changeToneBtn.addEventListener("click", async () => {
@@ -67,22 +84,49 @@ changeToneBtn.addEventListener("click", async () => {
         instruction: "Rewrite, with the correct grammar and in a" + toneSelect.value + "tone",
         temperature: 0.5
       })
-    });
-    const data = await response.json();
-if (data.hasOwnProperty('choices') && data.choices.length > 0) {
-    // Extract the corrected text from the API response
-    tonedText.value = data.choices[0].text;
-} else {
-    // Handle the case where the API returns an empty array of choices
-    tonedText.value = "Sorry, unable to change the tone for the provided text";
-}
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        tonedText.innerHTML = data.choices[0].text;
+      })
+    .catch(error => {
+        console.error(error);
+        tonedText.innerHTML = "Sorry, unable to correct the grammar for the provided text";
+      });
+      
+    // const data = await response.json();
+// if (data.hasOwnProperty('choices') && data.choices.length > 0) {
+//     // Extract the toned text from the API response
+//     console.log("changed tone");
+//     tonedText.innerHTML = data.choices[0].text;
+// } else {
+//     // Handle the case where the API returns an empty array of choices
+//     console.log("error changing tone");
+//     tonedText.innerHTML = "Sorry, unable to change the tone for the provided text";
+// }
+
 })
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // selected text to appear in text arear of popup
-chrome.runtime.onMessage.addListener(
-  function (request, sender, sendResponse) {
-    if (request.message === "update_selected_text") {
-      // Update the text area with the selected text
-      document.getElementById("inputText").value = request.selectedText;
-    }
-  });
+// chrome.runtime.onMessage.addListener(
+//   function (request, sender, sendResponse) {
+//     if (request.message === "update_selected_text") {
+//       // Update the text area with the selected text
+//       document.getElementById("inputText").value = request.selectedText;
+//     }
+//   });

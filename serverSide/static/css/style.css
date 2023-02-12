@@ -99,3 +99,14 @@ body {
     display: none;
   }
   
+  .message {
+    font-weight: bold;
+    position: fixed;
+    top: 20px;
+    right: 40%;
+    padding: 10px;
+    background-color: rgb(211, 211, 211);
+    border-radius: 7px;
+    display: none;
+  }
+    

@@ -17,6 +17,13 @@
   </head>
 
   <body>
+    <div class="message" id="message">
+      {% if status == 'new' %}
+      Your free trial has started.
+      {% elif status == 'ongoing' %}
+      Your free trial is ongoing.
+      {% endif %}
+    </div>
     <input type="hidden" id="session-id" name="session_id" value="{{ session_id }}" />
     <div class="container">
       <div class="header clearfix">
@@ -29,17 +36,28 @@
         </nav>
         <h3 class="text-muted">AI Writer Extension</h3>
       </div>
-
+      {% if status == "new" %}
       <div class="jumbotron">
         <h1 class="display-3">Your Free Trial is Activated</h1>
         <p class="lead">Enjoy our services!</p>
       </div>
-
+      {% elif status == "ongoing" %}
+      <div class="jumbotron">
+        <h1 class="display-3">Your free trial is ongoing</h1>
+        <p class="lead">Enjoy our services!</p>
+      </div>
+      {% else %}
+      <div class="jumbotron">
+        <h1 class="display-3">Your free trial has ended.</h1>
+        <p class="lead"> Please upgrade to a premium account to continue using the system.</p>
+      </div>
+      {% endif %}
       <footer class="footer">
         <p>&copy; AI writer 2023</p>
       </footer>
 
     </div> <!-- /container -->
+    <script src="{{ url_for('static', filename='js/script-ajax.js') }}"></script>
 
   </body>
 </html>

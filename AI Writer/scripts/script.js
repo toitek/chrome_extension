@@ -37,8 +37,7 @@ html.append(
 );
 
 var iframe = document.getElementById(iframeId);
-iframe.src = "chrome-extension:/kkemeoacfdmckedhpkkacbkdpjfmdnll/ui/popup.html";
-// iframe.src = "https://chat.openai.com/";
+iframe.src = "chrome-extension://pngpjlmjcifbgjaaijjmbglfehnkigli/ui/popup.html";
 
 $("#collapseButton").click(function () {
     isCollapsed = !isCollapsed;

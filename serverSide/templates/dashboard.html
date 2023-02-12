@@ -8,7 +8,6 @@
   <body>
     
       <h2>Welcome to AI Writer</h2>
-      
       <div class="container">
         <div class="header clearfix">
             <nav>
@@ -55,7 +54,9 @@
               <h5>Enjoy 2 days free trial to get an experience of our extension's capabilities</h5>
             </div>
           </div>
-            <button id="checkout-and-portal-button" type="submit"><a href="{{ url_for('free_trial') }}" id="free" class="btn btn-primary">Start</button></a>
+          <a href="{{ url_for('free_trial') }}" id="free" class="btn btn-primary">
+            <button id="checkout-and-portal-button" type="submit">Start</button>
+          </a>
         </section>
         <section>
           <div class="product">
@@ -95,7 +96,9 @@
               <h5>Purchase 1000 usage credits for only $10.</h5>
             </div>
           </div>
-          <button id="checkout-and-portal-button" type="submit"><a href="#" id="onetime" class="btn btn-primary">Start</button></a>
+          <a href="#" id="onetime" class="btn btn-primary">
+          <button id="checkout-and-portal-button" type="submit">Checkout</button>
+        </a>
         </section>
 
         <footer class="footer">
@@ -109,6 +112,7 @@
         </script>
         -->
         <script src="{{ url_for('static', filename='js/script-ajax.js') }}"></script>
+
 
     </div>
         

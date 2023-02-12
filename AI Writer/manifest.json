@@ -3,13 +3,6 @@
     "name": "AI Writer Extension",
     "description": "This extension autocompletes text in text areas, corrects grammar and changes text tone",
     "version": "1.1.0",
-    "oauth2": {
-        "client_id": "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",
-        "scopes": [
-            "profile email",
-            "https://accounts.google.com/gsi/client"
-        ]
-    },
     "permissions": [
         "activeTab",
         "contextMenus",
@@ -43,12 +36,9 @@
             ],
             "js": [
                 "scripts/content.js",
-                "scripts/floating-button.js",
+                "scripts/script.js",
                 "scripts/popup.js",
-                "scripts/prompt.js"
-            ],
-            "css": [
-                "ui/styles/floating-button.css"
+                "scripts/options.js"
             ]
         }
     ],
@@ -58,13 +48,8 @@
     "action": {
         "default_popup": "ui/options.html"
     },
-    "options_page": "ui/options.html",
-    "options_ui": {
-        "page": "ui/options.html",
-        "open_in_tab": true
-  },
     "web_accessible_resources": [{ 
-        "resources": ["ui/prompt.html", "ui/options.html", "ui/popup.html"],
+        "resources": ["ui/options.html", "ui/popup.html"],
         "matches":["https://localhost:5000/*", "https://www.google.com/*", "<all_urls>"]
     }]
 }

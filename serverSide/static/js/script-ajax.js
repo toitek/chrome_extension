@@ -40,10 +40,3 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById("notification-button").style.display = "none";
     }, 2000);
   }
-  
-  if (trial_end_date > current_date && trial_start_date < current_date) {
-    showNotification("You have an ongoing free trial");
-  } else if (trial_end_date < current_date) {
-    showNotification("Your free trial has ended");
-  }
-  

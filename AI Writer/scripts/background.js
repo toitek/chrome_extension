@@ -1,27 +1,60 @@
-
-chrome.action.onClicked.addListener(function(tab) {
-  // console.log('action clicked');
-  // chrome.windows.create({
-  //   url: "prompt.html",
-  //   type: "popup",
-  //   width: 500,
-  //   height: 500
-  // });
-  
-  // Check if there's an existing login instance in the Chrome storage
-  chrome.storage.local.get("userData", function(result) {
-  if (result.userData) {
-  // Login instance found, open the options popup
-  console.log("User data is present in the storage: ", result.userData);
-  chrome.action.setPopup({popup: 'ui/options.html'});
-  } else {
-  // Login instance not found, open the login popup
-  console.log("User data is not present in the storage");
-  // openLoginPrompt();
-  chrome.action.setPopup({popup: 'ui/prompt.html'});
-  }
+chrome.runtime.sendMessage({method: "getLocalStorage", key: "email"}, function(response) {
+  if (response.data !== "undefined") {
+// Creates a context menu item
+chrome.runtime.onInstalled.addListener(function() {
+    chrome.contextMenus.create({
+      "id": "AIwriter",
+      "title": "AI Writer",
+      "contexts": ["selection"]
+    });
   });
+}
 });
+
+// Adds a click listener to the context menu item
+chrome.contextMenus.onClicked.addListener(function (info, tab) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        let tabId = tabs[0].id;
+        chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/script.js"] });
+        console.log("Executed 1");
+        chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/jquery.js"] }, function () {
+            chrome.scripting.executeScript({ target: { tabId: tabId } , files: ["scripts/script.js"] });
+            console.log("Executed 2");
+        });
+    });
+  });
+
+
+
+
+
+
+
+
+
+// chrome.action.onClicked.addListener(function(tab) {
+//   // console.log('action clicked');
+//   // chrome.windows.create({
+//   //   url: "prompt.html",
+//   //   type: "popup",
+//   //   width: 500,
+//   //   height: 500
+//   // });
+  
+//   // Check if there's an existing login instance in the Chrome storage
+//   chrome.storage.local.get("userData", function(result) {
+//   if (result.userData) {
+//   // Login instance found, open the options popup
+//   console.log("User data is present in the storage: ", result.userData);
+//   chrome.action.setPopup({popup: 'ui/options.html'});
+//   } else {
+//   // Login instance not found, open the login popup
+//   console.log("User data is not present in the storage");
+//   // openLoginPrompt();
+//   chrome.action.setPopup({popup: 'ui/prompt.html'});
+//   }
+//   });
+// });
 
 // function openLoginPrompt() {
 //     chrome.windows.create({
@@ -86,55 +119,22 @@ chrome.action.onClicked.addListener(function(tab) {
 // });
 
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.type === "showOptionsPage") {
-    chrome.browserAction.setPopup({popup: 'options.html'});
-  } else if (request.type === "showPromptPage") {
-    chrome.browserAction.setPopup({popup: 'prompt.html'});
-  }
-});
-
-
-  
-// chrome.storage.local.get('signed_in', (data) => {
-//   if (data.signed_in) {
-//     chrome.action.setPopup({popup: 'popup.html'});
-//   } else {
-//     chrome.action.setPopup({popup: 'popup_login.html'});
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//   if (request.type === "showOptionsPage") {
+//     chrome.browserAction.setPopup({popup: 'options.html'});
+//   } else if (request.type === "showPromptPage") {
+//     chrome.browserAction.setPopup({popup: 'prompt.html'});
 //   }
 // });
 
 // Initialize the extension
-chrome.runtime.onInstalled.addListener(function() {
-  chrome.contextMenus.create({
-    "id": "AIwriter",
-    "title": "AI Writer",
-    "contexts": ["selection"]
-  });
-});
+// chrome.runtime.onInstalled.addListener(function() {
+//   chrome.contextMenus.create({
+//     "id": "AIwriter",
+//     "title": "AI Writer",
+//     "contexts": ["selection"]
+//   });
+// });
 
 
-chrome.contextMenus.onClicked.addListener(function (info, tab) {
-  if (info.menuItemId === "AIwriter") {    
-      // Create a new window and open an HTML file
-      
-          chrome.windows.create({
-          url: "ui/popup.html",
-          type: "popup",
-          "left": 800,
-          "width": 600,
-          "height": 620,
-            });
-      
-      // Get the selected text
-      var selectedText = info.selectionText;
-      
-      // Send the selected text to the popup script
-      chrome.runtime.sendMessage({
-            message: "update_selected_text", 
-          "selectedText": selectedText
-      },function(response){
-        console.log(response.ack)
-      });
-  }
-});
+

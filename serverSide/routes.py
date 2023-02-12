@@ -119,12 +119,10 @@ def free_trial():
         if current_user.trial_end_date:
             if datetime.now() < current_user.trial_end_date:
                 # Free trial is ongoing
-                flash('Your free trial is ongoing.', 'success')
-                return render_template('free_trial.html', user=current_user)
+                return render_template('free_trial.html', user=current_user, status = "ongoing")
             else:
                 # Free trial has ended, redirect the user
-                flash('Your free trial has ended. Please upgrade to a premium account to continue using the system.', 'warning')
-                return redirect(url_for('dashboard'))
+                return render_template('free_trial.html', user=current_user, status = "ended")
         else:
             # Start a new free trial
             trial_start_date = datetime.now()
@@ -132,8 +130,12 @@ def free_trial():
             current_user.trial_start_date = trial_start_date
             current_user.trial_end_date = trial_end_date
             db.session.commit()
-            flash('Your free trial has started! You have 2 days to use the system without joining premium.', 'success')
-            return render_template('free_trial.html', user=current_user)
+
+        # response = {
+        #     "status": status,
+        # }
+        # return jsonify(response)
+        return render_template('free_trial.html', user=current_user, status = "new")
     except TemplateNotFound:
         abort(404)
 

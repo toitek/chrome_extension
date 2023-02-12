@@ -37,3 +37,10 @@ document.querySelector("#premium-button").addEventListener("click", function() {
           });
       });
       
+      document.getElementById("switch").addEventListener("change", (event) => {
+        const isChecked = event.target.checked;
+        chrome.storage.local.set({ "isEnabled": isChecked }, () => {
+          console.log("The switch state is saved: ", isChecked);
+        });
+      });
+      

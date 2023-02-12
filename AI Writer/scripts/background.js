@@ -1,5 +1,5 @@
-chrome.runtime.sendMessage({method: "getLocalStorage", key: "email"}, function(response) {
-  if (response.data !== "undefined") {
+chrome.storage.local.get("email", function(result) {
+  if (result.email) {
 // Creates a context menu item
 chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({

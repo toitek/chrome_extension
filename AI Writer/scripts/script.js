@@ -19,8 +19,8 @@ if (html.css('position') === 'static') {
 
 var iframeId = 'AIW-Sidebar';
 if (document.getElementById(iframeId)) {
-    alert(iframeId + ' Refresh page!');
-    throw iframeId + 'Side bar already launched!';
+    alert('id:' + iframeId + ' Refresh page!');
+    throw 'id:' + iframeId + 'Side bar already launched!';
 }
 
 html.append(
@@ -28,7 +28,7 @@ html.append(
     '<div id="collapseButton" style="color: black;">x</div>' +
     '<iframe id="' + iframeId + '" scrolling="no" frameborder="0" allowtransparency="false" ' +
     'style="position: fixed; height: ' + height + 'px; width: ' + width + 'px;' +
-    'right: 0px; top: 0px; bottom: 0px; z-index: 1;' +
+    'right: 0px; top: 0px; bottom: 0px; z-index:1;' +
     'box-shadow: rgb(0 0 0 / 70%) 2px 1px 12px;' +
     'transition: all 0.35s ease 0s;' +
     '">' +
@@ -37,7 +37,8 @@ html.append(
 );
 
 var iframe = document.getElementById(iframeId);
-iframe.src = "chrome-extension://ndnlhjahpahmimoeikmpjefmcaghcdka/ui/popup.html";
+iframe.src = "chrome-extension:/kkemeoacfdmckedhpkkacbkdpjfmdnll/ui/popup.html";
+// iframe.src = "https://chat.openai.com/";
 
 $("#collapseButton").click(function () {
     isCollapsed = !isCollapsed;
@@ -55,17 +56,22 @@ $("#collapsableContainer").css({
     'right': '0px',
     'top': '0px',
     'bottom': '0px',
-    'width': width + 'px'
+    'width': width + 'px',
+    'z-index': '2147483647'
 });
 
 $("#collapseButton").css({
-    'padding': '0px 6px 2px',
+    'padding': '8px 12px',
     'line-height': '1em',
     'cursor': 'pointer',
     'position': 'absolute',
     'background': 'rgb(224, 217, 217)',
     'font-family': 'monospace',
     'font-size': '20px',
-    'color': 'rgb(85, 85, 85)',
-    'z-index': '2147483648'
+    'color': 'white',
+    'border-radius': '50%',
+    'right': '8px',
+    'top': '8px',
+    'z-index': '2147483647',
+    'box-shadow': '0 0 10px rgb(0, 0, 0, 0.25)'
 });

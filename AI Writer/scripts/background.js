@@ -1,5 +1,3 @@
-chrome.storage.local.get("email", function(result) {
-  if (result.email) {
 // Creates a context menu item
 chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
@@ -8,8 +6,6 @@ chrome.runtime.onInstalled.addListener(function() {
       "contexts": ["selection"]
     });
   });
-}
-});
 
 // Adds a click listener to the context menu item
 // chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -24,9 +20,37 @@ chrome.runtime.onInstalled.addListener(function() {
 //     });
 //   });
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
+  // let isEnabled = true;
+  // document.getElementById("switch").addEventListener("change", (event) => {
+  //     const isChecked = event.target.checked;
+  //     chrome.storage.local.set({ "isEnabled": isChecked }, () => {
+  //       console.log("The switch state is saved: ", isChecked);
+  //     });
+  //   });
+    
 
-
+  
+  
+  // const toggleButton = document.getElementById("toggle-button");
+  // toggleButton.addEventListener("click", () => {
+  //   chrome.scripting.executeScript({
+  //     target: { tabId: tab.id },
+  //     files: ["scripts/content.js"]
+  //   });
+  // });
 
 
 

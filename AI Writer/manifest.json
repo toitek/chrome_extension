@@ -20,7 +20,8 @@
         "https://accounts.google.com/gsi/client",
         "https://mail.google.com/*",
         "https://docs.google.com/*",
-        "https://drive.google.com/*"
+        "https://drive.google.com/*",
+        "<all_urls>"
     ],
     "icons": {
         "16": "icons/icon16.png",

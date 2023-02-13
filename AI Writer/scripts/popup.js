@@ -21,7 +21,10 @@
 //   }
 // });
 
-
+// ensure user is loged in
+// chrome.storage.local.get("email", function(result) {
+  // if (result.email) {
+    
 document.addEventListener('DOMContentLoaded', function(){
 const correctGrammarBtn = document.getElementById("correct-grammar-btn");
 const originalText = document.getElementById("original-text");
@@ -102,7 +105,8 @@ if (data.hasOwnProperty('choices') && data.choices.length > 0) {
 }
 })
 });
-
+// }
+// });
 
 // document.querySelector("#signout").addEventListener("click", function() {
 //   window.open("https://localhost:5000/logout");

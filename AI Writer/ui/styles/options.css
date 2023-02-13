@@ -175,7 +175,7 @@ header img {
   }
   
   
-  .switch {
+  #switch {
     margin: 5px;
     position: relative;
     display: inline-block;
@@ -183,7 +183,7 @@ header img {
     height: 28px;
   }
   
-  .switch input { 
+  #switch input { 
     opacity: 0;
     width: 0;
     height: 0;

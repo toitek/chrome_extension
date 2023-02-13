@@ -9,90 +9,97 @@ document.querySelector("#sidebar-button").addEventListener("click", function () 
         });
     });
 });
-
-document.querySelector("#user-button").addEventListener("click", function () {
-  window.open("https://localhost:5000/login", "_blank");
-});
-
-document.querySelector("#premium-button").addEventListener("click", function () {
-  window.open("https://localhost:5000/dashboard", "_blank");
-});
-
-// Delete account
-document.querySelector("#delete-account-button").addEventListener("click", function () {
-  if (confirm("Are you sure you want to delete your account?")) {
-    // send a request to the server to delete the account
-    fetch(`https://localhost:5000/delete_user/${document.getElementById('user-email').textContent}`, {
-      method: 'DELETE',
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error(`Failed to delete account: ${response.statusText}`);
-        }
-      })
-      .then(data => {
-        if (data.success) {
-          alert("Account deleted successfully");
-          // reload the page to show the updated state
-          window.location.reload();
-        } else {
-          throw new Error(`Failed to delete account: ${data.error}`);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-        alert(error.message);
+document.querySelector("#user-button").addEventListener("click", function() {
+    	window.open("https://localhost:5000/login", "_blank");
       });
-  }
-});
+      
+          
+document.querySelector("#premium-button").addEventListener("click", function() {
+    	window.open("https://localhost:5000/dashboard", "_blank");
+      });
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        fetch('https://localhost:5000/get_user_email')
+          .then(response => response.json())
+          .then(data => {
+            const email = data.email;
+            const emailElement = document.getElementById('user-email');
+            emailElement.textContent = email;
+            if (email) {
+              document.querySelector("#sidebar-button").removeAttribute("disabled");
+              chrome.runtime.sendMessage({ type: 'user-email', email: email });
+            } else {
+              document.querySelector("#sidebar-button").setAttribute("disabled", "true");
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      });
+      
+      // document.getElementById("switch").addEventListener("change", (event) => {
+      //   const isChecked = event.target.checked;
+      //   chrome.storage.local.set({ "isEnabled": isChecked }, () => {
+      //     console.log("The switch state is saved: ", isChecked);
+      //   });
+      // });
+      
+      
+      // document.addEventListener("DOMContentLoaded", function() {
+      //   const switchEl = document.getElementById("switch");
+      //   if (switchEl) {
+      //     chrome.storage.local.get("isEnabled", (result) => {
+      //       switchEl.checked = result.isEnabled || false;
+      //     });
+      //     switchEl.addEventListener("change", (event) => {
+      //       const isChecked = event.target.checked;
+      //       chrome.storage.local.set({ "isEnabled": isChecked }, () => {
+      //         console.log("The switch state is saved: ", isChecked);
+      //       });
+      //     });
+      //   }
+      // });
+      
+      // let isEnabled = true;
+      // const toggleButton = document.getElementById("toggle-button");
+      // toggleButton.addEventListener("click", () => {
+      //     if (isEnabled) {
+      //       // Disable the autocomplete feature
+      //       isEnabled = false;
+      //       document.getElementById("toggle-button").innerText = "Enable Autocomplete";
+      //       chrome.runtime.sendMessage({ type: "toggleEnabled", enabled: !isEnabled });
+      //     } else {
+      //       // Enable the autocomplete feature
+      //       isEnabled = true;
+      //       document.getElementById("toggle-button").innerText = "Disable Autocomplete";
+      //       chrome.runtime.sendMessage({ type: "toggleEnabled", enabled: isEnabled });
+      //     }
+      //   });
+      
+      // Get the toggle button
+// const toggleButton = document.getElementById("toggleButton");
 
-// login, logout and signup buttons
-document.addEventListener('DOMContentLoaded', function () {
-  fetch('https://localhost:5000/get_user_email')
-    .then(response => response.json())
-    .then(data => {
-        const email = data.email;
-        const emailElement = document.getElementById('user-email');
-        emailElement.textContent = email;
-        const loginButton = document.getElementById('login-button');
-        const logoutButton = document.getElementById('logout-button');
-        const signupButton = document.getElementById('user-button');
-        const deleteButton = document.getElementById('delete-account-button');
-      if (email) {
-        document.querySelector("#sidebar-button").removeAttribute("disabled");
-        loginButton.style.display = 'none';
-        deleteButton.style.display = 'block';
-        logoutButton.style.display = 'block';
-        signupButton.style.display = 'none';
-        logoutButton.addEventListener("click", function () {
-          window.open("https://localhost:5000/logout", "_blank");
-        });
+// // Get the state of the toggle button from the backend endpoint
+// fetch("https://localhost:5000/isEnabled")
+//   .then((response) => response.json())
+//   .then((data) => {
+//     // Set the initial state of the toggle button based on the backend response
+//     toggleButton.checked = data.isEnabled;
+//   });
+//   // document.getElementById("toggle-button").innerText = "Disable Autocomplete";
 
-      } else {
-        document.querySelector("#sidebar-button").setAttribute("disabled", "true");
-        loginButton.style.display = 'block';
-        deleteButton.style.display = 'none';
-        logoutButton.style.display = 'none';
-        signupButton.style.display = 'block';
-        loginButton.addEventListener("click", function () {
-          window.open("https://localhost:5000/login", "_blank");
-        });
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
-});
+// // Add an event listener to the toggle button to update its state
+// toggleButton.addEventListener("change", function () {
+//   // Send a message to the content script to update its state
+//   chrome.runtime.sendMessage({
+//     type: "updateState",
+//     isEnabled: toggleButton.checked, 
+//   });
+//   // Update the state of the toggle button in the backend
+//   fetch("https://localhost:5000/toggleButton", {
+//     method: "POST",
+//   });
+// });
 
-const toggleButton = document.getElementById("toggle-extension");
-toggleButton.addEventListener("click", async () => {
-  const response = await fetch("https://localhost:5000/toggle", {
-    method: "GET"
-  });
-  const data = await response.json();
-  console.log(data)
-  chrome.runtime.sendMessage({ data: data });
-});
-
+      
+      

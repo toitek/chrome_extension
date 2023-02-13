@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta
 import json
 import os
+from urllib import response
 from flask import abort, jsonify, redirect, render_template, request, url_for, flash
 from flask_login import current_user, login_required, login_user, logout_user
 from jinja2 import TemplateNotFound
@@ -9,7 +10,6 @@ import stripe
 from serverSide import app, db
 from serverSide.models import User
 from dotenv import load_dotenv, find_dotenv
-
 
 
 # Setup Stripe python client library
@@ -54,7 +54,6 @@ def save_user_data():
     if existing_user:
         print("Existing user signed in succesfully!")
         login_user(existing_user)
-        # return redirect("/dashboard")
         return render_template("dashboard.html", existing_user=current_user)
 
     user = User(
@@ -90,6 +89,23 @@ def check_email():
         return jsonify({"emailPresent": True})
     else:
         return jsonify({"emailPresent": False})
+
+
+# Initial state for the toggle button, can be changed as needed
+isEnabled = True
+
+@app.route("/isEnabled", methods=["GET"])
+def get_is_enabled():
+    global isEnabled
+    print("enabled")
+    return jsonify({"isEnabled": isEnabled})
+
+@app.route("/toggleButton", methods=["POST"])
+def toggle_button():
+    global isEnabled
+    isEnabled = not isEnabled
+    print("disabled")
+    return jsonify({"isEnabled": isEnabled})
 
 
 @app.route("/dashboard")
@@ -154,6 +170,23 @@ def update_counter():
         return jsonify({'status': 'success'})
     else:
         return jsonify({'status': 'failure'})
+
+@app.route('/autocomplete_counter', methods=['POST'])
+def autocomplete_counter():
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    data = request.get_json()
+    print("count received")
+    autocomplete_counter = data.get('autocompletedTextCounter', 0)
+    usage_rate = autocomplete_counter * 0.2
+    
+    user = User.query.filter_by(email=current_user.email).first()
+    if user:
+        user.credits -= usage_rate
+        db.session.commit()
+        return jsonify({'status': 'success'})
+    else:
+        return jsonify({'status': 'failure'})
+
 
 @app.route('/payment_onetime')
 def payment_onetime():

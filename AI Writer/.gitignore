@@ -63,3 +63,53 @@ console.log("ID: " + responsePayload.sub);
 
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; 
     script-src 'self' https://code.jquery.com/jquery-3.2.1.slim.min.js https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js;>	
+	
+	
+	,
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>",
+                "https://mail.google.com/*",
+                "https://docs.google.com/*",
+                "https://drive.google.com/*"
+            ],
+            "js": [
+                "scripts/content.js",
+                "scripts/script.js",
+                "scripts/popup.js"
+            ]
+        }
+    ],
+	
+	
+	chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
+  if (request.type === 'user-email') {
+    const email = request.email;
+    console.log(email);
+    if(event.target.tagName === "TEXTAREA") {
+      // Enable the extension when a text area receives focus
+      await enableExtension(event.target);
+  }
+}
+console.log("email not avilable");
+});
+    
+
+// document.addEventListener("focusin", async (event) => {
+//   fetch('https://localhost:5000/get_user_email')
+//     .then(response => response.json())
+//     .then(async data => {
+//       const email = data.email;
+//       if (email) {
+//         // let isEnabled = true;
+//         if(event.target.tagName === "TEXTAREA") {
+//               // Enable the extension when a text area receives focus
+//               await enableExtension(event.target);
+//       }
+//       } 
+//     })
+//     .catch(error => {
+//       console.error(error);
+//     });
+// });

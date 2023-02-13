@@ -12,17 +12,17 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 // Adds a click listener to the context menu item
-chrome.contextMenus.onClicked.addListener(function (info, tab) {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        let tabId = tabs[0].id;
-        chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/script.js"] });
-        console.log("Executed 1");
-        chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/jquery.js"] }, function () {
-            chrome.scripting.executeScript({ target: { tabId: tabId } , files: ["scripts/script.js"] });
-            console.log("Executed 2");
-        });
-    });
-  });
+// chrome.contextMenus.onClicked.addListener(function (info, tab) {
+//     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+//         let tabId = tabs[0].id;
+//         chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/script.js"] });
+//         console.log("Executed 1");
+//         chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/jquery.js"] }, function () {
+//             chrome.scripting.executeScript({ target: { tabId: tabId } , files: ["scripts/script.js"] });
+//             console.log("Executed 2");
+//         });
+//     });
+//   });
 
 
 
@@ -136,5 +136,41 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 //   });
 // });
 
+// chrome.runtime.onMessage.addListener(
+//   function (request, sender, sendResponse) {
+//     if (request.message === "remove_event_listeners") {
+//       // Get a reference to the content script
+//       const contentScript = chrome.extension.getBackgroundPage().document.querySelector('#content-script');
 
+//       // Remove the event listeners
+//       contentScript.removeEventListener("keydown", keydownEventListener);
+//       contentScript.removeEventListener("keyup", keyupEventListener);
+
+//       // Close the background page
+//       chrome.extension.getBackgroundPage().close();
+//     }
+//   }
+// );
+
+// let extensionEnabled = false;
+
+// chrome.runtime.sendMessage({ type: "getState" }, function (response) {
+//   extensionEnabled = response.extensionEnabled;
+// });
+
+// Listen for messages from the content script
+// console.log('hey');
+chrome.runtime.onMessage.addListener(
+  function (request, sender, sendResponse) {
+    // console.log(request.data);
+    // console.log('hey');
+    if (request.data.state === true) {
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        let tabId = tabs[0].id;
+      chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/content.js"] });
+      console.log(request.data);
+      console.log('hey');
+      });
+    }
+  });
 

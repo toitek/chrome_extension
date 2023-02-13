@@ -37,7 +37,7 @@ html.append(
 );
 
 var iframe = document.getElementById(iframeId);
-iframe.src = "chrome-extension://pngpjlmjcifbgjaaijjmbglfehnkigli/ui/popup.html";
+iframe.src = "chrome-extension:/kkemeoacfdmckedhpkkacbkdpjfmdnll/ui/popup.html";
 
 $("#collapseButton").click(function () {
     isCollapsed = !isCollapsed;

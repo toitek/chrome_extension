@@ -354,3 +354,30 @@ def success_recurrent():
 @app.errorhandler(401)
 def unauthorized_error(error):
     return render_template("Errors/Error_401.html"), 401
+
+# delete account
+@app.route('/delete_user/<string:email>', methods=["DELETE"])
+def delete_user(email):
+    user = User.query.filter_by(email=email).first()
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"success": "User has been deleted successfully."})
+    else:
+        return jsonify({"error": "User with the provided email does not exist."}), 404
+
+
+# @app.route('/toggle_extension')
+# def toggle_extension():
+#     global extension_enabled
+#     extension_enabled = not extension_enabled
+#     return jsonify({'extension_enabled': extension_enabled})
+
+# Initialize the state of the extension to off
+state = False
+
+@app.route("/toggle", methods=["GET"])
+def toggle():
+    global state
+    state = not state
+    return jsonify({"state": state})

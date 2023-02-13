@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,16 +14,24 @@
   <body>
     <header>
       <img src="/icons/icon128.png" class="mb-3" style="display: block; margin: 0 auto; padding-top: 4px;">
-      <div class="user"> <span id="user-email"></span></div>
-      <button type="button" class="my-button" id="user-button">Log out</button>
+
+      <div class="user"><span id="user-email"></span></div>
+
+      <button type="button" class="my-button" id="logout-button">Log out</button>
+      <button type="button" class="my-button" id="login-button">Log in</button>
       <button type="button" class="my-button" id="user-button">Sign Up</button>
+      <button type="button" class="my-button" id="delete-account-button">Delete Account</button>
+
     </header>
 
-    <!-- <button id="toggleButton">Enable</button> -->
+    <!-- <button id="toggle-button">Toggle Extension</button> -->
+    <!-- <button id="disableScript">Disable Script</button> -->
+    <button id="toggle-extension">Toggle Extension</button>
 
+    <!-- <button id="toggle-extension">Toggle Extension</button> -->
     <div class="container">
       <p>Enable/Disable
-        <label class="switch">
+        <label class="switch" id="switch">
           <input type="checkbox">
           <span class="slider round"></span>
         </label>
@@ -35,7 +42,6 @@
 
             <div class="text-center">
               <button class="custom-btn btn-15" id="sidebar-button">Sidebar</button>
-              <!-- <button type="button" class="my-button" id="sidebar-button">Launch Sidebar</button> -->
               <button class="custom-btn btn-15" id="premium-button">Premium</button>
               <!-- <button type="button" class="my-button" id="premium-button">
                 <i class="fas fa-gem"></i> Go Premium
@@ -43,9 +49,11 @@
             </div>
 
             <div class="info">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio laborum alias dolor nostrum eaque,
-                blanditiis ipsam sunt itaque corrupti reprehenderit praesentium quasi dicta soluta, ratione doloribus
-                deleniti ab facilis dolorum.</p>
+              <p>
+              <b>AI Writer</b> is a revolutionary new tool that uses advanced artificial intelligence technology to help users write and compose their text with ease.
+              <br>
+              - With AI Writer, you can write in a more efficient and faster manner, without having to worry about grammar, punctuation, or word choice.
+            </p>
             </div>
           </div>
         </div>

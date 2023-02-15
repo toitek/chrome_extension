@@ -20,7 +20,7 @@ async function enableExtension(textArea) {
     let suggestionAccepted = false;
     textArea.addEventListener("keydown", async (event) => {
       // Check if the pressed key is the space bar
-      if (event.code === "Space" && event.code !== ["Space", "Space"]) {
+      if (event.code === "ArrowRight" ) {
         // Get the text before the cursor
         const text = textArea.value.substring(0, textArea.selectionStart);
         // Split the text into an array of words
@@ -46,7 +46,7 @@ async function enableExtension(textArea) {
               if (typeof data !== "undefined" && data !== null && typeof data.choices !== "undefined" && data.choices !== null) {
                 autocompletedText = data.choices[0].text;
                 // Insert the autocompleted text into the text area
-                textArea.value = text + " " + autocompletedText;
+                textArea.value = text + autocompletedText;
                 // Change the color of the autocompleted text to grey
                 autocompletedTextStart = text.length;
                 autocompletedTextEnd = textArea.value.length;

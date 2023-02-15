@@ -105,18 +105,22 @@ if (data.hasOwnProperty('choices') && data.choices.length > 0) {
 }
 })
 });
-// }
-// });
 
-// document.querySelector("#signout").addEventListener("click", function() {
-//   window.open("https://localhost:5000/logout");
-//   });
 
-// selected text to appear in text arear of popup
-// chrome.runtime.onMessage.addListener(
-//   function (request, sender, sendResponse) {
-//     if (request.message === "update_selected_text") {
-//       // Update the text area with the selected text
-//       document.getElementById("inputText").value = request.selectedText;
-//     }
-//   });
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('https://localhost:5000/get_user_email')
+    .then(response => response.json())
+    .then(data => {
+      const email = data.email;
+      const emailElement = document.getElementById('user');
+      emailElement.textContent = email;
+      if (!email) {
+        alert("Please login first")
+        window.open("https://localhost:5000/login");
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+});
+

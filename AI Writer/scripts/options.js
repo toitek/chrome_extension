@@ -87,12 +87,16 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 const toggleButton = document.getElementById("toggle-extension");
-toggleButton.addEventListener("click", async () => {
-  const response = await fetch("https://localhost:5000/toggle", {
-    method: "GET"
-  });
-  const data = await response.json();
-  console.log(data)
-  chrome.runtime.sendMessage({ data: data });
-});
-
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('https://localhost:5000/toggle')
+    .then(response => response.json())
+    .then(data => {
+      if (data.state === true) {
+        toggleButton.textContent = 'AI Writer enabled';
+      }
+      else{
+        toggleButton.textContent = 'AI Writer disabled';
+      }
+      chrome.runtime.sendMessage({ data: data });
+    });
+    });

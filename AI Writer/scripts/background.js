@@ -15,9 +15,11 @@ chrome.runtime.onInstalled.addListener(function() {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           let tabId = tabs[0].id;
         chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/content.js"] });
-        console.log(request.data);
-        console.log('hey');
+        // console.log(request.data);
+        console.log('Enabled');
         });
+      }else if (request.data.state === false) {
+        console.log('Disabled');
       }
     });
   

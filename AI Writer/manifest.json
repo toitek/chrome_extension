@@ -39,7 +39,9 @@
             "js": [
                 "scripts/script.js",
                 "scripts/popup.js",
-                "scripts/options.js"
+                "scripts/options.js",
+                "scripts/content.js",
+                "scripts/dropdown.js"
             ]
         }
     ],
@@ -50,7 +52,7 @@
         "default_popup": "ui/options.html"
     },
     "web_accessible_resources": [{ 
-        "resources": ["ui/options.html", "ui/popup.html"],
+        "resources": ["ui/options.html", "ui/popup.html", "ui/dropdown.html"],
         "matches":["https://localhost:5000/*", "https://www.google.com/*", "<all_urls>"]
     }]
 }

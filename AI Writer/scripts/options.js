@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
       const logoutButton = document.getElementById('logout-button');
       const signupButton = document.getElementById('user-button');
       const deleteButton = document.getElementById('delete-account-button');
+      // send email to background
+      chrome.runtime.sendMessage({ action: "user", data: email });
+      
       if (email) {
         document.querySelector("#sidebar-button").removeAttribute("disabled");
         loginButton.style.display = 'none';

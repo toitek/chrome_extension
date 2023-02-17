@@ -80,32 +80,32 @@ def get_user_email():
         return jsonify({"error": "User not found"}), 404
 
 
-#TODO remember to check this...
-@app.route("/check-email", methods=["GET"])
-def check_email():
-    email = request.args.get("email")
-    user = User.query.filter_by(email=email).first()
-    if user:
-        return jsonify({"emailPresent": True})
-    else:
-        return jsonify({"emailPresent": False})
+
+# @app.route("/check-email", methods=["GET"])
+# def check_email():
+#     email = request.args.get("email")
+#     user = User.query.filter_by(email=email).first()
+#     if user:
+#         return jsonify({"emailPresent": True})
+#     else:
+#         return jsonify({"emailPresent": False})
 
 
-# Initial state for the toggle button, can be changed as needed
-isEnabled = True
+# # Initial state for the toggle button, can be changed as needed
+# isEnabled = True
 
-@app.route("/isEnabled", methods=["GET"])
-def get_is_enabled():
-    global isEnabled
-    print("enabled")
-    return jsonify({"isEnabled": isEnabled})
+# @app.route("/isEnabled", methods=["GET"])
+# def get_is_enabled():
+#     global isEnabled
+#     print("enabled")
+#     return jsonify({"isEnabled": isEnabled})
 
-@app.route("/toggleButton", methods=["POST"])
-def toggle_button():
-    global isEnabled
-    isEnabled = not isEnabled
-    print("disabled")
-    return jsonify({"isEnabled": isEnabled})
+# @app.route("/toggleButton", methods=["POST"])
+# def toggle_button():
+#     global isEnabled
+#     isEnabled = not isEnabled
+#     print("disabled")
+#     return jsonify({"isEnabled": isEnabled})
 
 
 @app.route("/dashboard")

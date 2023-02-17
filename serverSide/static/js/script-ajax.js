@@ -31,12 +31,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  
-  function showNotification(message) {
-    document.getElementById("notification-text").innerHTML = message;
-    document.getElementById("notification-button").style.display = "block";
-  
-    setTimeout(function() {
-      document.getElementById("notification-button").style.display = "none";
-    }, 2000);
-  }

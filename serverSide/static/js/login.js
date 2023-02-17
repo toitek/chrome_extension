@@ -1,8 +1,6 @@
 alert("Please Sign Up with Google first.");
 
 function handleCredentialResponse(response) {
-	// decodeJwtResponse() is a custom function
-	// to decode the credential response.
 	const responsePayload = decodeJwtResponse(response.credential);
 	
 	const userData = {
@@ -20,7 +18,10 @@ fetch("https://localhost:5000/adduser", {
   },
   body: JSON.stringify(userData)
 })
-
+.then(response => {
+	// Redirect the user to the dashboard page
+	window.location.href = "https://localhost:5000/dashboard";
+})
 }
 function decodeJwtResponse(data){
    var tokens = data.split(".");

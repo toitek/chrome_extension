@@ -92,10 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(response => response.json())
     .then(data => {
       if (data.state === true) {
-        toggleButton.textContent = 'AI Writer enabled';
+        toggleButton.textContent = 'Enabled';
       }
       else{
-        toggleButton.textContent = 'AI Writer disabled';
+        toggleButton.textContent = 'Disabled';
       }
       chrome.runtime.sendMessage({ data: data });
     });

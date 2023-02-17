@@ -119,7 +119,34 @@ def dashboard():
             existing_user = User.query.filter_by(email=current_user.email).first()
             existing_user.stripe_customer_id = customer.id
             db.session.commit()
-            return render_template("dashboard.html", user=current_user)
+            
+            subscription_status = ""
+            trial_due = current_user.trial_end_date < datetime.utcnow()
+            monthly_due = current_user.monthly_subscription_end_date < datetime.utcnow()
+            trial_days_left = (current_user.trial_end_date - datetime.utcnow()).days
+            
+            if current_user.account_status == "free":
+                # Check if the trial end date has been reached
+                if current_user.trial_end_date and trial_due:
+                    subscription_status = "Trial period ended"
+                else:
+                    trial_days_left
+            else:
+                # Check if the user has an active subscription
+                if current_user.account_status == "monthly" or current_user.account_status == "credits":
+                    # Check if the monthly subscription has been reached
+                    if current_user.monthly_subscription_end_date and monthly_due:
+                        subscription_status = "Monthly subscription ended"
+                    # Check if the user has 0 credits
+                    elif current_user.credits == 0:
+                        subscription_status = "Out of credits"
+                    else:
+                        subscription_status = "Active"
+                        days_remaining = (current_user.monthly_subscription_end_date - datetime.utcnow()).days
+                        print(days_remaining)
+                        print(current_user.monthly_subscription_end_date)
+                        credits_remaining = current_user.credits 
+            return render_template('dashboard.html', user=current_user, subscription_status=subscription_status, days_remaining=days_remaining, credits_remaining=credits_remaining, trial_days_left=trial_days_left, monthly_due=monthly_due)
         else:
             # user is not logged in, redirect to login page
             # print("user is not logged in")
@@ -343,46 +370,13 @@ def success_recurrent():
     end_time = subscription.current_period_end
 
     # Update the subscription start and end dates in the database
-    user.monthly_subscription_start_date = datetime.datetime.fromtimestamp(start_time)
-    user.monthly_subscription_end_date = datetime.datetime.fromtimestamp(end_time)
+    user.monthly_subscription_start_date = datetime.fromtimestamp(start_time)
+    user.monthly_subscription_end_date = datetime.fromtimestamp(end_time)
 
     # Commit the changes to the database
     db.session.commit()
     return render_template('success_recurrent.html', session_id=session_id)
 
-# @app.route('/stripe_webhook', methods=['POST'])
-# def stripe_webhook():
-#     print('WEBHOOK CALLED')
-
-#     if request.content_length > 1024 * 1024:
-#         print('REQUEST TOO BIG')
-#         abort(400)
-#     payload = request.get_data()
-#     sig_header = request.environ.get('HTTP_STRIPE_SIGNATURE')
-#     endpoint_secret = 'YOUR_ENDPOINT_SECRET'
-#     event = None
-
-#     try:
-#         event = stripe.Webhook.construct_event(
-#             payload, sig_header, endpoint_secret
-#         )
-#     except ValueError as e:
-#         # Invalid payload
-#         print('INVALID PAYLOAD')
-#         return {}, 400
-#     except stripe.error.SignatureVerificationError as e:
-#         # Invalid signature
-#         print('INVALID SIGNATURE')
-#         return {}, 400
-
-#     # Handle the checkout.session.completed event
-#     if event['type'] == 'checkout.session.completed':
-#         session = event['data']['object']
-#         print(session)
-#         line_items = stripe.checkout.Session.list_line_items(session['id'], limit=1)
-#         print(line_items['data'][0]['description'])
-
-#     return {}
 
 @app.errorhandler(401)
 def unauthorized_error(error):
@@ -400,13 +394,6 @@ def delete_user(email):
         return jsonify({"error": "User with the provided email does not exist."}), 404
 
 
-# @app.route('/toggle_extension')
-# def toggle_extension():
-#     global extension_enabled
-#     extension_enabled = not extension_enabled
-#     return jsonify({'extension_enabled': extension_enabled})
-
-# Initialize the state of the extension to off
 state = False
 
 @app.route("/toggle", methods=["GET"])

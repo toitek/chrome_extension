@@ -1,12 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="test.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
+
 <body>
-    <script src="/node_modules/notifyjs/dist/notify.js"></script>
+
+    <body>
+        <div class="wrapper">
+            <h1 class="heading">
+                Welcome to AI Writer
+            </h1>
+            <div class="pricing-table group">
+                
+                <div class="block professional fl">
+                    <h2 class="title">Avilable Plans</h2>
+                    <!-- CONTENT -->
+                    <div class="content">
+                        <section>
+                            <div class="product">
+                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="16px" viewBox="0 0 14 16" version="1.1">
+                                  <defs/>
+                                  <g id="Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                      <g id="0-Default" transform="translate(-121.000000, -40.000000)" fill="#E184DF">
+                                          <path d="M127,50 L126,50 C123.238576,50 121,47.7614237 121,45 C121,42.2385763 123.238576,40 126,40 L135,40 L135,56 L133,56 L133,42 L129,42 L129,56 L127,56 L127,50 Z M127,48 L127,42 L126,42 C124.343146,42 123,43.3431458 123,45 C123,46.6568542 124.343146,48 126,48 L127,48 Z" id="Pilcrow"/>
+                                      </g>
+                                  </g>
+                              </svg>
+                              <div class="description">
+                                <h3>Free Trial</h3>
+                                <h5>Enjoy 2 days free trial to get an experience of our extension's capabilities</h5>
+                              </div>
+                            </div>
+                            <a href="{{ url_for('free_trial') }}" id="free" class="btn btn-primary">
+                              <button id="checkout-and-portal-button" type="submit">Start</button>
+                            </a>
+                          </section>
+                          <section>
+                            <div class="product">
+                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="16px" viewBox="0 0 14 16" version="1.1">
+                                  <defs/>
+                                  <g id="Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                      <g id="0-Default" transform="translate(-121.000000, -40.000000)" fill="#E184DF">
+                                          <path d="M127,50 L126,50 C123.238576,50 121,47.7614237 121,45 C121,42.2385763 123.238576,40 126,40 L135,40 L135,56 L133,56 L133,42 L129,42 L129,56 L127,56 L127,50 Z M127,48 L127,42 L126,42 C124.343146,42 123,43.3431458 123,45 C123,46.6568542 124.343146,48 126,48 L127,48 Z" id="Pilcrow"/>
+                                      </g>
+                                  </g>
+                              </svg>
+                              <div class="description">
+                                <h3>Monthly plan (unlimited credits)</h3>
+                                <h5>$100.00 / month</h5>
+                              </div>
+                            </div>
+                            <form action="/create-checkout-session" method="POST">
+                              <!-- Add a hidden field with the lookup_key of your Price -->
+                              <input type="hidden" name="lookup_key" value="unlimited" />
+                              <button id="checkout-and-portal-button" type="submit">Checkout</button>
+                            </form>
+                          </section>
+                          
+                          
+                          <section>
+                            <div class="product">
+                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="16px" viewBox="0 0 14 16" version="1.1">
+                                  <defs/>
+                                  <g id="Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                      <g id="0-Default" transform="translate(-121.000000, -40.000000)" fill="#E184DF">
+                                          <path d="M127,50 L126,50 C123.238576,50 121,47.7614237 121,45 C121,42.2385763 123.238576,40 126,40 L135,40 L135,56 L133,56 L133,42 L129,42 L129,56 L127,56 L127,50 Z M127,48 L127,42 L126,42 C124.343146,42 123,43.3431458 123,45 C123,46.6568542 124.343146,48 126,48 L127,48 Z" id="Pilcrow"/>
+                                      </g>
+                                  </g>
+                              </svg>
+                              <div class="description">
+                                <h3>Credits</h3>
+                                <h5>Purchase 1000 usage credits for only $10.</h5>
+                              </div>
+                            </div>
+                            <a href="#" id="onetime" class="btn btn-primary">
+                            <button id="checkout-and-portal-button" type="submit">Checkout</button>
+                          </a>
+                          </section>
+                  
+                    </div>
+                    
+                    <!-- PT-FOOTER -->
+                    <div class="pt-footer">
+                        <p>plans</p>
+                    </div>
+                    <!-- /PT-FOOTER -->
+                </div>
+
+                <div class="block business fl">
+                    <h2 class="title">Your Active Plan</h2>
+                    <!-- CONTENT -->
+                    <div class="content">
+                        {% if user.account_status == "free" %}
+                            {% if user.trial_end_date and user.trial_end_date < datetime.utcnow() %}
+                                <p>Trial period ended</p>
+                            {% else %}
+                                <p>You are currently on a free trial.</p>
+                                <p>You have {{ (user.trial_end_date - datetime.utcnow()).days }} days left on your trial.</p>
+                            {% endif %}
+                        {% else %}
+                            {% if user.account_status == "monthly" or user.account_status == "credits" %}
+                                {% if user.monthly_subscription_end_date and user.monthly_subscription_end_date < datetime.utcnow() %}
+                                    <p>Your monthly subscription has ended.</p>
+                                {% elif user.credits == 0 %}
+                                    <p>You are out of credits.</p>
+                                {% else %}
+                                    <p>Your subscription is active.</p>
+                                    <p>You have {{ (user.monthly_subscription_end_date - datetime.utcnow()).days }} days left on your subscription.</p>
+                                    
+                                    <p>You have {{ user.credits }} credits remaining.</p>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+
+                    </div>
+                    <!-- /CONTENT -->
+
+                    <!-- FEATURES -->
+                    <!-- <ul class="features">
+                        <li><span class="fontawesome-cog"></span>25 WordPress Install</li>
+                        <li><span class="fontawesome-star"></span>400,000 visits/mo.</li>
+                        <li><span class="fontawesome-dashboard"></span>Unlimited Data Transfer</li>
+                        <li><span class="fontawesome-cloud"></span>30GB Local Storage</li>
+                    </ul> -->
+                    <!-- /FEATURES -->
+
+                    <!-- PT-FOOTER -->
+                    <div class="pt-footer">
+                        <p>Host My Website</p>
+                    </div>
+                    <!-- /PT-FOOTER -->
+                </div>
+               
+            </div>
+           
+        </div>
+    </body>
 </body>
+
 </html>

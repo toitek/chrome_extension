@@ -7,50 +7,16 @@ chrome.runtime.onInstalled.addListener(function() {
     });
   });
 
-  
-  
-  // chrome.runtime.onMessage.addListener(
-  //   function (request, sender, sendResponse) {
-  //     // console.log(request.data);
-  //     // console.log('hey');
-  //     if (request.data.state === true) {
-  //       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-  //         let tabId = tabs[0].id;
-  //       chrome.scripting.executeScript({ target: { tabId: tabId }, files: ["scripts/content.js"] });
-  //       // console.log(request.data);
-  //       console.log('Enabled');
-  //       });
-  //     }else if (request.data.state === false) {
-  //       console.log('Disabled');
-  //     }
-  //   });
-  
     
-    
+    // receive the email and send it to dropdown script
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       if (message.action === 'user') {
         const email = message.data;
         console.log(email)
+        // chrome.runtime.sendMessage({ action: "user", data: email });
+        chrome.storage.sync.set({ 'userEmail': email });
       }
     })    
-    
-    
-    chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-      if (message.action === "autocompletedTextCounter") {
-        const autocompletedTextCounter = message.data;
-        // Send the updated grammarCounter value to the server
-      await fetch("https://localhost:5000/autocomplete_counter", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          autocompletedTextCounter: autocompletedTextCounter,
-          email: email
-        })
-      });
-      }
-    });
     
     
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -62,3 +28,4 @@ chrome.runtime.onInstalled.addListener(function() {
       }
     });
     
+ 

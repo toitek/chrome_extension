@@ -200,14 +200,12 @@ def update_counter():
 
 @app.route('/autocomplete_counter', methods=['POST'])
 def autocomplete_counter():
-    # response.headers.add('Access-Control-Allow-Origin', '*')
-    data = request.get_json()
-    print("count received")
-    autocomplete_counter = data.get('autocompletedTextCounter', 0)
-    usage_rate = autocomplete_counter * 0.2
-    
-    user = User.query.filter_by(email=current_user.email).first()
+    # print("count received")
+    email = request.headers.get('User-Email')
+    user = User.query.filter_by(email=email).first()
     if user:
+        autocompleted_text_counter = request.json.get('counter', 0)
+        usage_rate = autocompleted_text_counter * 0.2
         user.credits -= usage_rate
         db.session.commit()
         return jsonify({'status': 'success'})

@@ -89,17 +89,48 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-const toggleButton = document.getElementById("toggle-extension");
-document.addEventListener('DOMContentLoaded', function () {
-  fetch('https://localhost:5000/toggle')
-    .then(response => response.json())
-    .then(data => {
+
+// enable/disable
+// const toggleButton = document.getElementById("toggle-extension");
+// document.addEventListener('DOMContentLoaded', function () {
+//   fetch('https://localhost:5000/toggle')
+//     .then(response => response.json())
+//     .then(data => {
+//       if (data.state === true) {
+//         toggleButton.textContent = 'Enabled';
+//       }
+//       else{
+//         toggleButton.textContent = 'Disabled';
+//       }
+//       chrome.runtime.sendMessage({ data: data });
+//       chrome.storage.sync.set({ 'state': data });
+//     });
+//     });
+
+    // enable/disable
+    const toggleButton = document.querySelector("#toggle-extension");
+    // Retrieve last state from storage and set default text content
+    chrome.storage.sync.get("state", function (data) {
       if (data.state === true) {
-        toggleButton.textContent = 'Enabled';
+        toggleButton.textContent = "Enabled";
+      } else {
+        toggleButton.textContent = "Disabled";
       }
-      else{
-        toggleButton.textContent = 'Disabled';
-      }
-      chrome.runtime.sendMessage({ data: data });
     });
+
+// Listen for button click and toggle state
+    document.querySelector("#toggle-extension").addEventListener("click", function () {
+      fetch('https://localhost:5000/toggle')
+      .then(response => response.json())
+      .then(data => {
+        if (data.state === true) {
+          toggleButton.textContent = 'Enabled';
+          console.log("active")
+        }
+        else{
+          toggleButton.textContent = 'Disabled';
+          console.log("inactive")
+        }
+        chrome.storage.sync.set({ 'state': data.state });
+      }); 
     });

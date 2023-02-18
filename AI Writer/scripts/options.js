@@ -89,24 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-// enable/disable
-// const toggleButton = document.getElementById("toggle-extension");
-// document.addEventListener('DOMContentLoaded', function () {
-//   fetch('https://localhost:5000/toggle')
-//     .then(response => response.json())
-//     .then(data => {
-//       if (data.state === true) {
-//         toggleButton.textContent = 'Enabled';
-//       }
-//       else{
-//         toggleButton.textContent = 'Disabled';
-//       }
-//       chrome.runtime.sendMessage({ data: data });
-//       chrome.storage.sync.set({ 'state': data });
-//     });
-//     });
-
     // enable/disable
     const toggleButton = document.querySelector("#toggle-extension");
     // Retrieve last state from storage and set default text content

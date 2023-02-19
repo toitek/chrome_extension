@@ -123,7 +123,9 @@ def dashboard():
             trial_status = ""
             monthly_status = ""
             credit_status = ""
-            # trial_days_left = None
+            trial_days_left = None
+            trial_close = None
+            trial_end = None
             credits_remaining = current_user.credits
             
             if current_user.trial_start_date is not None and current_user.trial_end_date is not None:
@@ -207,7 +209,7 @@ def update_counter():
     grammar_counter = data.get('grammarCounter', 0)
     tone_counter = data.get('toneCounter', 0)
     total_counter = grammar_counter + tone_counter
-    usage_rate= total_counter * 0.5
+    usage_rate= total_counter * 0.7
     
     user = User.query.filter_by(email=current_user.email).first()
     if user:

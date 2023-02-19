@@ -121,32 +121,49 @@ def dashboard():
             db.session.commit()
             
             subscription_status = ""
-            trial_due = current_user.trial_end_date < datetime.utcnow()
-            monthly_due = current_user.monthly_subscription_end_date < datetime.utcnow()
-            trial_days_left = (current_user.trial_end_date - datetime.utcnow()).days
+            trial_days_left = None
+            credits_remaining = current_user.credits
             
-            if current_user.account_status == "free":
+            if current_user.trial_start_date is not None and current_user.trial_end_date is not None:
+                trial_due = current_user.trial_end_date < datetime.utcnow()
+                trial_days_left = (current_user.trial_end_date - datetime.utcnow()).days
+            
                 # Check if the trial end date has been reached
                 if current_user.trial_end_date and trial_due:
                     subscription_status = "Trial period ended"
                 else:
                     trial_days_left
+                    subscription_status = "Trial period ongoing"
             else:
-                # Check if the user has an active subscription
-                if current_user.account_status == "monthly" or current_user.account_status == "credits":
-                    # Check if the monthly subscription has been reached
-                    if current_user.monthly_subscription_end_date and monthly_due:
-                        subscription_status = "Monthly subscription ended"
+                # handle the case when current_user.trial_end_date is None
+                trial_due = None
+                subscription_status = "Trial period not started"
+                
+            if current_user.monthly_subscription_start_date is not None and current_user.monthly_subscription_end_date is not None:    
+                monthly_due = current_user.monthly_subscription_end_date - datetime.utcnow()
+                # Check if the monthly subscription has been reached
+                if current_user.monthly_subscription_end_date and monthly_due:
+                    subscription_status = "Monthly subscription ended"
                     # Check if the user has 0 credits
-                    elif current_user.credits == 0:
-                        subscription_status = "Out of credits"
-                    else:
-                        subscription_status = "Active"
-                        days_remaining = (current_user.monthly_subscription_end_date - datetime.utcnow()).days
-                        print(days_remaining)
-                        print(current_user.monthly_subscription_end_date)
-                        credits_remaining = current_user.credits 
-            return render_template('dashboard.html', user=current_user, subscription_status=subscription_status, days_remaining=days_remaining, credits_remaining=credits_remaining, trial_days_left=trial_days_left, monthly_due=monthly_due)
+                else:
+                    subscription_status = "Monthly subscription active"
+                    monthly_due
+                    # days_remaining = (current_user.monthly_subscription_end_date - datetime.utcnow()).days
+                    # print(days_remaining)
+                    # print(current_user.monthly_subscription_end_date)     
+            else:
+                monthly_due = None
+                subscription_status = "No monthly subscription" 
+            
+            if current_user.credits == 0 and current_user.account_status == "credits":
+                subscription_status = "Out of credits"
+            elif current_user.credits == 0 and current_user.account_status == "monthly" or        current_user.account_status == "free":
+                subscription_status = "No credits"
+            elif current_user.credits > 0:
+                credits_remaining
+                subscription_status = "Credits avilable"
+                
+            return render_template('dashboard.html', user=current_user, subscription_status=subscription_status, credits_remaining=credits_remaining, trial_days_left=trial_days_left, monthly_due=monthly_due)
         else:
             # user is not logged in, redirect to login page
             # print("user is not logged in")

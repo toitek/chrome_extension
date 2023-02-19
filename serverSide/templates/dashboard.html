@@ -88,31 +88,41 @@
                 </div>
 
                 <div class="block business fl">
-                    <h2 class="title">Your Active Plan</h2>
+                    <h2 class="title">Your Active Plan</h2> 
                     <!-- CONTENT -->
                     <div class="content">
-                        {% if current_user.account_status == "free" %}
+                      <h2 class="title">Trial Status</h2>
+                        {% if current_user.trial_start_date is defined and current_user.trial_end_date is defined %}
                             {% if current_user.trial_end_date and trial_due %}
-                                <p>Trial period ended</p>
+                                <p>{{ subscription_status }}</p>
                             {% else %}
-                                <p>You are currently on a free trial.</p>
+                                <p>{{ subscription_status }}</p>
                                 <p>You have {{ trial_days_left }} days left on your trial.</p>
                             {% endif %}
-                        {% else %}
-                            {% if current_user.account_status == "monthly" or current_user.account_status == "credits" %}
-                                {% if current_user.monthly_subscription_end_date and monthly_due %}
-                                    <p>Your monthly subscription has ended.</p>
-                                {% elif current_user.credits == 0 %}
-                                    <p>You are out of credits.</p>
-                                {% else %}
-                                    <p>You have an active subscription</p>
-                                    <p>You have {{ days_remaining }} days left on your subscription.</p>
-                                    
-                                    <p>You have {{ current_user.credits }} credits remaining.</p>
-                                {% endif %}
-                            {% endif %}
+                        {% else %}    
+                            <p>{{ subscription_status }}</p>
+                        {%endif%}    
+                      <h2 class="title">Monthly Status</h2>  
+                        {% if current_user.monthly_subscription_start_date is defined and current_user.monthly_subscription_end_date is defined %}
+                            {% if current_user.monthly_subscription_end_date and monthly_due %}
+                                <p>{{ subscription_status }}</p>
+                            {% else %}
+                                <p>{{ subscription_status }}</p>
+                                <p>You have {{ monthly_due }} days left on your subscription.</p>
+                            {%endif%}
+                        {% else %}  
+                            <p>{{ subscription_status }}</p>
+                        {%endif%}
+                        
+                      <h2 class="title">Credits Status</h2>  
+                        {% if current_user.credits == 0 and current_user.account_status %}
+                            <p>{{ subscription_status }}</p>
+                        {% elif current_user.credits == 0 and current_user.account_status == "monthly" or current_user.account_status == "free" %}         
+                            <p>{{ subscription_status }}</p> 
+                        {% elif current_user.credits > 0 %}  
+                            <p>{{ subscription_status }}</p>  
+                            <p>You have {{ current_user.credits }} credits remaining.</p>
                         {% endif %}
-
                     </div>
                    
                 </div>

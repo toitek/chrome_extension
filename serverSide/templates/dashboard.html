@@ -7,10 +7,17 @@
     <title>Payment Dashboard</title>
   </head>
     <body>
+      
         <div class="wrapper">
-          <h1 class="heading">
-            AI Writer Premium
-          </h1>
+          <header>
+            <h1 class="heading">
+              AI Writer Premium
+            </h1>
+            <a href="{{ url_for('logout') }}">
+              <button class="custom-btn" id="logout-btn"><span>Sign Out</span></button>
+            </a>
+          </header>
+          
             <div class="pricing-table group"> 
                 <div class="block professional fl">
                     <h2 class="title">Avilable Plans</h2>
@@ -130,7 +137,7 @@
                
             </div>
             <div class="footer">
-            <a href="{{ url_for('logout') }}">Sign Out</a>
+            
             </div>
         </div>
         <script src="https://js.stripe.com/v3/"></script>

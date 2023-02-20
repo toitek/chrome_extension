@@ -30,7 +30,7 @@ function enableAutocomplete() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer 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'
+          'Authorization': 'Bearer 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'
         },
         body: JSON.stringify({
           prompt: currentText,

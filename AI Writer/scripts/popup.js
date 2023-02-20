@@ -1,29 +1,3 @@
-// for receiving event page message
-// document.addEventListener('DOMContentLoaded', function() {
-//   chrome.runtime.onMessage.addListener(
-//       function (request, sender, sendResponse) {
-//         console.log( sender.tab ?
-//           "from event page:" + sender.tab.url: 
-//           "from the extension");
-//           if (request.message === "update_selected_text") {
-//               sendResponse({ack:"message received"})
-//               var selectedText = request.selectedText;
-//               document.getElementById("original-text").value = selectedText;
-//           }
-//       });
-// });
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//   if (request.message === "update_selected_text") {
-//     sendResponse({ack:"message received"})
-//       var selectedText = request.selectedText;
-//       console.log(selectedText);
-//       document.getElementById("original-text").value = selectedText;
-//   }
-// });
-
-// ensure user is loged in
-// chrome.storage.local.get("email", function(result) {
-  // if (result.email) {
     
 document.addEventListener('DOMContentLoaded', function(){
 const correctGrammarBtn = document.getElementById("correct-grammar-btn");
@@ -41,7 +15,7 @@ correctGrammarBtn.addEventListener("click", async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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'
+        'Authorization': 'Bearer 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'
       },
       body: JSON.stringify({
         input: originalText.value,
@@ -76,7 +50,7 @@ changeToneBtn.addEventListener("click", async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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'
+        'Authorization': 'Bearer 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'
       },
       body: JSON.stringify({
         input: originalText.value,

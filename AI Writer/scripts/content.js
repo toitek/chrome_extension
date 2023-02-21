@@ -16,14 +16,25 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 });
 
 function enableAutocomplete() {
-  // Get all textarea elements on the page
-  const textareas = document.getElementsByTagName('textarea');
+  // // Get all textarea elements on the page
+  // const textareas = document.getElementsByTagName('textarea');
+  
+  console.log('Looking for text areas...');
+      const textareas = document.querySelectorAll('section, textarea, iframe, [contenteditable=true], [role=textbox], [class*=textarea], [id*=textarea], [id="textbox_ifr"], [id="textbox_ifr"], [name*=textarea], .mce-content-body, textarea#textarea, textarea.textarea, textarea[name="textarea"], #main_area text-center, #TtextEdior, .tox tox-tinymce, .mce-content-body, p, li, h2, h3, h4, h5, #notepad, textarea#notepad, div#editable, iframe#ifr_doc body, [role="textbox"][contenteditable="true"], article, .is-selected, #notepad-content');
+      
+      console.log(`Found ${textareas.length} text areas.`);
 
-  // Add input event listener to each textarea element
+  // Add keydown event listener to each textarea element
   for (let i = 0; i < textareas.length; i++) {
-    textareas[i].addEventListener('input', async function(event) {
-      // Get the current text in the textarea
-      const currentText = event.target.value;
+    textareas[i].addEventListener('keydown', async function(event) {
+      // Check if ctrl, shift, and ArrowRight keys are pressed simultaneously
+      if (event.ctrlKey && event.shiftKey && event.key === 'ArrowRight') {
+        event.preventDefault();
+
+        // Get the current text in the textarea and the cursor position
+        const textarea = event.target;
+        const currentText = textarea.value;
+        const cursorPosition = textarea.selectionStart;
 
       // Autocomplete the current text using GPT-3 API
       const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
@@ -34,7 +45,7 @@ function enableAutocomplete() {
         },
         body: JSON.stringify({
           prompt: currentText,
-          max_tokens: 2,
+          max_tokens: 1,
           temperature: 0.89
         })
       });
@@ -47,32 +58,16 @@ function enableAutocomplete() {
       // Pass the suggestion to the dropdown script
       chrome.runtime.sendMessage({action: 'addSuggestion', suggestion: suggestion});
       console.log("message sent by content script");
-    
-      
-      // Add the suggestion to the dropdown list below the textarea
-      const existingDropdown = document.querySelector('.dropdown');
-      if (existingDropdown) {
-        existingDropdown.remove();
+
+      // Add the suggestion after the cursor
+      const newText = currentText.slice(0, cursorPosition) + suggestion + currentText.slice(cursorPosition);
+        textarea.value = newText;
+        textarea.setSelectionRange(cursorPosition + suggestion.length, cursorPosition + suggestion.length);
       }
+      
+      // Insert the suggestion at the current cursor position
+      // insertSuggestion(suggestion);
 
-      const dropdown = document.createElement('div');
-      dropdown.classList.add('dropdown');
-      dropdown.innerHTML = `
-        <div class="dropdown-content">${suggestion}</div>
-      `;
-      event.target.parentNode.insertBefore(dropdown, event.target.nextSibling);
-
-
-      // Add click event listener to the suggestion dropdown
-      const dropdownContent = dropdown.querySelector('.dropdown-content');
-      dropdownContent.addEventListener('click', function() {
-        // Insert the suggestion into the textarea at the appropriate location
-        const start = event.target.selectionStart;
-        const end = event.target.selectionEnd;
-        const newText = currentText.slice(0, start) + suggestion + currentText.slice(end);
-        event.target.value = newText;
-        dropdown.remove();
-      });
       
     });
   }
@@ -83,10 +78,30 @@ function disableAutocomplete() {
   // Code to disable autocomplete feature
   console.log('Autocomplete disabled');
 }
-
 });
 
 
+function insertSuggestion(suggestion) {
+  // Get the currently active element
+  const activeElement = document.activeElement;
+
+  // Check if the active element is a contenteditable div with role "textbox"
+  if (activeElement.getAttribute("contenteditable") === "true" && activeElement.getAttribute("role") === "textbox") {
+    // Get the current selection and range
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+
+    // Create a new text node with the suggestion
+    const suggestionNode = document.createTextNode(suggestion);
+
+    // Insert the suggestion at the current selection
+    range.deleteContents();
+    range.insertNode(suggestionNode);
+    range.collapse(false);
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+}
 
 
 

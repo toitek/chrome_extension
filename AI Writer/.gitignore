@@ -113,3 +113,13 @@ console.log("email not avilable");
 //       console.error(error);
 //     });
 // });
+
+
+"scripts/script.js",
+                "scripts/popup.js",
+                "scripts/options.js",
+                
+                
+                // Pass the suggestion to the dropdown script
+      chrome.runtime.sendMessage({action: 'addSuggestion', suggestion: suggestion});
+      console.log("message sent by content script");

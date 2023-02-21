@@ -10,3 +10,10 @@ I've already loaded the certificate ``cert.pem`` and private key ``key.pem`` fil
 - Update the trusted certificates: ``sudo update-ca-certificates
 ``
 - Restart the app, localhost should now run in ``https``
+
+
+Autocomplete compatible with most sites. Tested with:
+https://editpad.org
+https://onlinenotepad.org/
+https://dnschecker.org/notepad-online.php
+Linkedin

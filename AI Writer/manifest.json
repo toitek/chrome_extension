@@ -37,10 +37,8 @@
                 "https://drive.google.com/*"
             ],
             "js": [
-                "scripts/script.js",
-                "scripts/popup.js",
-                "scripts/options.js",
                 "scripts/content.js",
+                "scripts/popup.js",
                 "scripts/dropdown.js"
             ]
         }
